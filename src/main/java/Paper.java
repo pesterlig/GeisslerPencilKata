@@ -1,6 +1,14 @@
 public class Paper {
-    public String acceptText(String handwrittenText){
+
+    private String text;
+
+
+    public String addText(String handwrittenText) {
         return "text";
+    }
+
+    public Boolean isWrittenOn() {
+        return true;
     }
 
 }
