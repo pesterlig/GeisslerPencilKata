@@ -1,6 +1,6 @@
 public class Paper {
-    public String acceptText(String writtenText){
-        return null;
+    public String acceptText(String handwrittenText){
+        return "text";
     }
 
 }
