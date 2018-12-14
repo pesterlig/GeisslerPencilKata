@@ -2,13 +2,18 @@ public class Paper {
 
     private String text;
 
+    public Paper(){
+        this.text = "";
+    }
+
 
     public String addText(String handwrittenText) {
-        return "text";
+        text += handwrittenText;
+        return text;
     }
 
     public Boolean isWrittenOn() {
-        return true;
+        return (text != null) && (!text.isEmpty());
     }
 
 }

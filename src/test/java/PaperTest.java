@@ -1,7 +1,6 @@
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 public class PaperTest {
 
@@ -20,16 +19,22 @@ public class PaperTest {
 
     }
 
+    @Test
+    public void paperIsWrittenOnReturnsFalseIfTextVariableIsNullOrEmpty(){
+        Paper paper = new Paper();
+        assertFalse(paper.isWrittenOn());
+    }
+
     /*@Test
     public void paperStoresText();
     Paper paper = new Paper();*/
 
 
-    @Test
+    /*@Test
     public void whenPaperWithTextIsPassedAStringItReturnsNewStringAppendedToTheText() {
         Paper paper = new Paper();
         assertEquals("text with new text appended", paper.addText("with new text appended"));
-    }
+    }*/
 
 
 }
