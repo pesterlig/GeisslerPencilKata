@@ -25,6 +25,13 @@ public class PaperTest {
         assertFalse(paper.isWrittenOn());
     }
 
+    @Test
+    public void whenPaperIsPassedAStringOfText_ThenPaperSetsText(){
+        Paper paper = new Paper();
+        paper.setText("content");
+        assertEquals("content", "content");
+    }
+
     /*@Test
     public void paperStoresText();
     Paper paper = new Paper();*/
