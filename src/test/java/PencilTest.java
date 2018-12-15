@@ -9,20 +9,30 @@ public class PencilTest {
     Paper paper;
 
     @Before
-    public void setUp(){
-        pencil = new Pencil();
+    public void setUp() {
+        pencil = new Pencil(20,20);
         paper = new Paper();
     }
+
     @Test
-    public void whenPencilWritesAString_ThenPaperSetsText() {
+    public void whenPencilWritesAString_thenPaperSetsText() {
         pencil.write("blah", paper);
         assertEquals("blah", "blah");
     }
 
     @Test
-    public void whenPencilWriteSetsTextOnPaper_ThenGetTextReturnsTheTextValueAndAddsNewTextToIt() {
+    public void whenPencilWriteSetsTextOnPaper_thenGetTextReturnsTheTextValueAndAddsNewTextToIt() {
         paper.setText("blah");
         pencil.write("blah", paper);
         assertEquals("blahblah", paper.getText());
+    }
+
+    @Test
+    public void whenPencilWrites_thenDecrementItsCurrentPointDurability() {
+        String text = "blah blah";
+        pencil.write(text, paper);
+        pencil.setInitialPointDurability(20);
+        pencil.setCurrentPointDurability(text);
+        assertEquals(pencil.getCurrentPointDurability(), 11 );
     }
 }
