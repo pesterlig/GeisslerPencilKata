@@ -20,4 +20,7 @@ public class Paper {
         return (text != null) && (!text.isEmpty());
     }
 
+    public String getText() {
+        return text;
+    }
 }

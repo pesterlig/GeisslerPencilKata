@@ -1,36 +1,49 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 
 public class PaperTest {
 
+    Paper paper;
+
+    @Before
+    public void setUp() {
+        paper = new Paper();
+    }
+
 
     @Test
     public void whenPaperAddTextIsPassedAString_ItReturnsThatString() {
-        Paper paper = new Paper();
         assertEquals("text", paper.addText("text"));
     }
 
     @Test
     public void paperIsWrittenOnReturnsTrueIfTextVariableIsHasValue() {
-        Paper paper = new Paper();
         paper.addText("hello world");
         assertTrue(paper.isWrittenOn());
 
     }
 
     @Test
-    public void paperIsWrittenOnReturnsFalseIfTextVariableIsNullOrEmpty(){
-        Paper paper = new Paper();
+    public void paperIsWrittenOnReturnsFalseIfTextVariableIsNullOrEmpty() {
         assertFalse(paper.isWrittenOn());
     }
 
     @Test
-    public void whenPaperIsPassedAStringOfText_ThenPaperSetsText(){
-        Paper paper = new Paper();
+    public void whenPaperIsPassedAStringOfText_ThenPaperSetsText() {
         paper.setText("content");
         assertEquals("content", "content");
     }
+
+    @Test
+    public void whenPaperSetsText_ThenTheGetTextMethodReturnsTheSameTextValue() {
+        String testVal = "blah";
+        paper.setText(testVal);
+        assertEquals(paper.getText(), testVal);
+    }
+
+
 
     /*@Test
     public void paperStoresText();

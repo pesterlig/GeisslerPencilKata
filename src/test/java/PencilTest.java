@@ -9,4 +9,11 @@ public class PencilTest {
         pencil.write("Merry Christmas", paper );
         assertEquals("Merry Christmas", "Merry Christmas");
     }
+
+   /* @Test
+    public void whenPencilWriteSetsTextOnPaper_ThenGetTextReturnsTheTextValueAndAddsNewTextToIt(){
+        Pencil pencil = new Pencil();
+        Paper paper = new Paper();
+
+    }*/
 }
