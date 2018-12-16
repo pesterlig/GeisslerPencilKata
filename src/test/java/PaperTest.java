@@ -12,24 +12,6 @@ public class PaperTest {
         paper = new Paper();
     }
 
-
-    @Test
-    public void whenPaperAddTextIsPassedAString_ItReturnsThatString() {
-        assertEquals("text", paper.addText("text"));
-    }
-
-    @Test
-    public void paperIsWrittenOnReturnsTrueIfTextVariableIsHasValue() {
-        paper.addText("hello world");
-        assertTrue(paper.isWrittenOn());
-
-    }
-
-    @Test
-    public void paperIsWrittenOnReturnsFalseIfTextVariableIsNullOrEmpty() {
-        assertFalse(paper.isWrittenOn());
-    }
-
     @Test
     public void whenPaperIsPassedAStringOfText_ThenPaperSetsText() {
         paper.setText("content");
@@ -42,19 +24,6 @@ public class PaperTest {
         paper.setText(testVal);
         assertEquals(testVal, paper.getText());
     }
-
-
-
-    /*@Test
-    public void paperStoresText();
-    Paper paper = new Paper();*/
-
-
-    /*@Test
-    public void whenPaperWithTextIsPassedAStringItReturnsNewStringAppendedToTheText() {
-        Paper paper = new Paper();
-        assertEquals("text with new text appended", paper.addText("with new text appended"));
-    }*/
 
 
 }
