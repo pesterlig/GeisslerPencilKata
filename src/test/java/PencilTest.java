@@ -64,5 +64,16 @@ public class PencilTest {
     }
 
 
+    //Question - how do I set up new test conditions for half of the test suite?
+
+
+    @Test
+    public void whenPencilWritesAString_thenCurrentPointDurabilityIsUnaffectedByNewlineCharacters() {
+        String text = "Blah \n Blah Blah\r";
+        pencil.write(text, paper);
+        pencil.setInitialPointDurability(20);
+        pencil.setCurrentPointDurability(text);
+        assertEquals(5, pencil.getCurrentPointDurability());
+    }
 
 }

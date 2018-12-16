@@ -1,3 +1,5 @@
+import java.util.regex.Pattern;
+
 public class Pencil {
 
     private int initialPointDurability;
@@ -27,17 +29,17 @@ public class Pencil {
         return currentPointDurability;
     }
 
+
     public void setCurrentPointDurability(String text) {
-        int count = 0;
+        String textChars = text.replaceAll("\\s+", "");
         int upperCase = 0;
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) == ' ') {
-                count++;
-            }
-            if (Character.isUpperCase(text.charAt(i))) {
+
+        for (int i = 0; i < textChars.length(); i++) {
+            if (Character.isUpperCase(textChars.charAt(i))) {
                 upperCase++;
             }
         }
-        this.currentPointDurability = (initialPointDurability - (text.length() + upperCase) + count);
+        this.currentPointDurability = (initialPointDurability - (textChars.length() + upperCase) );
+        }
+
     }
-}
