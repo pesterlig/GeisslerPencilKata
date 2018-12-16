@@ -10,7 +10,7 @@ public class PencilTest {
 
     @Before
     public void setUp() {
-        pencil = new Pencil(20,20);
+        pencil = new Pencil(20, 20);
         paper = new Paper();
     }
 
@@ -27,12 +27,42 @@ public class PencilTest {
         assertEquals("blahblah", paper.getText());
     }
 
-    @Test
-    public void whenPencilWrites_thenDecrementItsCurrentPointDurability() {
+    /*@Test
+    public void whenPencilWritesAnyCharacter_thenDecrementItsCurrentPointDurabilityOncePerCharacter() {
         String text = "blah blah";
         pencil.write(text, paper);
         pencil.setInitialPointDurability(20);
         pencil.setCurrentPointDurability(text);
-        assertEquals(pencil.getCurrentPointDurability(), 11 );
+        assertEquals(11, pencil.getCurrentPointDurability());
+    }*/
+
+    @Test
+    public void whenPencilWritesSpaces_thenCurrentPointDurabilityIsNotChanged() {
+        String text = " ";
+        pencil.write(text, paper);
+        pencil.setInitialPointDurability(20);
+        pencil.setCurrentPointDurability(text);
+        assertEquals(20, pencil.getCurrentPointDurability());
     }
+
+    @Test
+    public void whenPencilWritesCharactersAndSpaces_thenCurrentPointDurabilityCountsCharactersOnly() {
+        String text = " blah blah ";
+        pencil.write(text, paper);
+        pencil.setInitialPointDurability(20);
+        pencil.setCurrentPointDurability(text);
+        assertEquals(12, pencil.getCurrentPointDurability());
+    }
+
+    @Test
+    public void whenPencilWritesCapitalLetters_thenCurrentPointDurabilityDecreasesByTwoForEachCapitalLetter() {
+        String text = "Blah";
+        pencil.write(text, paper);
+        pencil.setInitialPointDurability(20);
+        pencil.setCurrentPointDurability(text);
+        assertEquals(15, pencil.getCurrentPointDurability());
+    }
+
+
+
 }

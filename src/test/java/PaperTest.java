@@ -40,7 +40,7 @@ public class PaperTest {
     public void whenPaperSetsText_ThenTheGetTextMethodReturnsTheSameTextValue() {
         String testVal = "blah";
         paper.setText(testVal);
-        assertEquals(paper.getText(), testVal);
+        assertEquals(testVal, paper.getText());
     }
 
 

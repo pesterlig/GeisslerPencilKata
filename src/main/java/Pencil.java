@@ -28,6 +28,16 @@ public class Pencil {
     }
 
     public void setCurrentPointDurability(String text) {
-        this.currentPointDurability = (initialPointDurability - text.length());
+        int count = 0;
+        int upperCase = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == ' ') {
+                count++;
+            }
+            if (Character.isUpperCase(text.charAt(i))) {
+                upperCase++;
+            }
+        }
+        this.currentPointDurability = (initialPointDurability - (text.length() + upperCase) + count);
     }
 }
