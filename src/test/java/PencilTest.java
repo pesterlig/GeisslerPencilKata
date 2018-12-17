@@ -73,7 +73,14 @@ public class PencilTest {
         Pencil pencil = new Pencil(20, 2);
         pencil.setCurrentPointDurability(ch);
         assertEquals(0, pencil.getCurrentPointDurability());
+    }
 
+    @Test
+    public void whenCurrentPointDurabilityGreaterThanOrEquals1AndCharacterIsLowercase_thenCurrentPointDurabilityIsReducedBy1() {
+        Character ch = 'a';
+        Pencil pencil = new Pencil(20, 1);
+        pencil.setCurrentPointDurability(ch);
+        assertEquals(0, pencil.getCurrentPointDurability());
     }
 
 
