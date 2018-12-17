@@ -36,11 +36,14 @@ public class PencilTest {
         assertEquals(11, pencil.getCurrentPointDurability());
     }*/
 
-    @Test
+
+    /*@Test //save for later...
     public void whenPencilWritesSpaces_thenCurrentPointDurabilityIsNotChanged() {
         prepContextForDurabilityTests(" ", 20);
         assertEquals(20, pencil.getCurrentPointDurability());
-    }
+    }*/
+
+
     // Three tests below are from when I was using a String argument for setCurrentPointDurabilty
 
       /* @Test
@@ -82,6 +85,24 @@ public class PencilTest {
         pencil.setCurrentPointDurability(ch);
         assertEquals(0, pencil.getCurrentPointDurability());
     }
+
+    @Test
+    public void whenCurrentPointDurabilityGreaterThanOrEquals0AndCharacterIsNewline_thenCurrentPointDurabilityRemainsTheSame() {
+        Character ch = '\n';
+        Pencil pencil = new Pencil(20, 0);
+        pencil.setCurrentPointDurability(ch);
+        assertEquals(0, pencil.getCurrentPointDurability());
+    }
+
+    @Test
+    public void whenCurrentPointDurabilityGreaterThanOrEquals1AndCharacterIsNoTUppercaseAndNotWhitespace_thenCurrentPointDurabilityIsReducedBy1() {
+        Character ch = '$';
+        Pencil pencil = new Pencil(20, 1);
+        pencil.setCurrentPointDurability(ch);
+        assertEquals(0, pencil.getCurrentPointDurability());
+    }
+
+
 
 
     //Context Methods extracted from tests
