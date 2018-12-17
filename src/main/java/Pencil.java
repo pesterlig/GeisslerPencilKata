@@ -30,7 +30,7 @@ public class Pencil {
     }
 
 
-    public void setCurrentPointDurability(String text) {
+    /*public void setCurrentPointDurability(String text) {
         String textChars = text.replaceAll("\\s+", "");
         int upperCase = 0;
 
@@ -39,7 +39,15 @@ public class Pencil {
                 upperCase++;
             }
         }
-        this.currentPointDurability = (initialPointDurability - (textChars.length() + upperCase) );
-        }
+        this.currentPointDurability = (initialPointDurability - (textChars.length() + upperCase));
+    }*/
 
+    public void setCurrentPointDurability(Character ch) {
+        int currentPointDurability = getCurrentPointDurability();
+        if ((currentPointDurability >= 2) && (Character.isUpperCase(ch))) {
+            currentPointDurability -= 2;
+        }
+        this.currentPointDurability =  currentPointDurability;
     }
+
+}

@@ -38,42 +38,50 @@ public class PencilTest {
 
     @Test
     public void whenPencilWritesSpaces_thenCurrentPointDurabilityIsNotChanged() {
-        String text = " ";
-        pencil.write(text, paper);
-        pencil.setInitialPointDurability(20);
-        pencil.setCurrentPointDurability(text);
+        prepContextForDurabilityTests(" ", 20);
         assertEquals(20, pencil.getCurrentPointDurability());
     }
+    // Three tests below are from when I was using a String argument for setCurrentPointDurabilty
 
-    @Test
+      /* @Test
     public void whenPencilWritesCharactersAndSpaces_thenCurrentPointDurabilityCountsCharactersOnly() {
-        String text = " blah blah ";
-        pencil.write(text, paper);
-        pencil.setInitialPointDurability(20);
-        pencil.setCurrentPointDurability(text);
+        prepContextForDurabilityTests(" blah blah ", 20);
         assertEquals(12, pencil.getCurrentPointDurability());
     }
 
+
     @Test
     public void whenPencilWritesCapitalLetters_thenCurrentPointDurabilityDecreasesByTwoForEachCapitalLetter() {
-        String text = "Blah";
-        pencil.write(text, paper);
-        pencil.setInitialPointDurability(20);
-        pencil.setCurrentPointDurability(text);
+        prepContextForDurabilityTests("Blah", 20);
         assertEquals(15, pencil.getCurrentPointDurability());
     }
 
 
-    //Question - how do I set up new test conditions for half of the test suite?
-
 
     @Test
     public void whenPencilWritesAString_thenCurrentPointDurabilityIsUnaffectedByNewlineCharacters() {
-        String text = "Blah \n Blah Blah\r";
-        pencil.write(text, paper);
-        pencil.setInitialPointDurability(20);
-        pencil.setCurrentPointDurability(text);
+        prepContextForDurabilityTests("Blah \n Blah Blah\r", 20);
         assertEquals(5, pencil.getCurrentPointDurability());
+    }*/
+
+    /*pencil durability needs to change as each character is written - it needs to receive char as an argument
+    write tests to make setCurrentPointDurability take chars as argument and return CPD for each case:Uppercase, lowercase, whitespace*/
+
+    @Test
+    public void whenCurrentPointDurabilityGreaterThanOrEquals2AndCharacterIsUppercase_thenCurrentPointDurabilityIsReducedBy2() {
+        Character ch = 'A';
+        Pencil pencil = new Pencil(20, 2);
+        pencil.setCurrentPointDurability(ch);
+        assertEquals(0, pencil.getCurrentPointDurability());
+
     }
 
+
+    //Context Methods extracted from tests
+
+    private void prepContextForDurabilityTests(String testText, int initialPointDurability) {
+        pencil.write(testText, paper);
+        pencil.setInitialPointDurability(initialPointDurability);
+        pencil.setCurrentPointDurability(testText.charAt(0));
+    }
 }
