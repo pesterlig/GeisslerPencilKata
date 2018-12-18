@@ -46,12 +46,18 @@ public class PencilTest {
         assertEquals("P", paper.getText());
     }
 
-    @Test //cast the blank spaces to ints and compare values so I have integers to compare in failing tests
+    @Test
+    // Nex two tests: cast the blank spaces to ints and compare values so I have integers to compare in failing tests
     public void whenDurabilityIs1AndChIsUppercase_thenPaperGetTextReturns1BlankSpaceChar() {
         prepContextForWriteMethodTests("P", 20, 1);
         assertEquals((int) (" ".charAt(0)), paper.getText().charAt(0));
     }
 
+    @Test
+    public void whenDurabilityIs0AndChIsNotWhitespace_thenPaperGetTextReturns1BlankSpaceChar() {
+        prepContextForWriteMethodTests("#", 20, 0);
+        assertEquals((int) (" ".charAt(0)), paper.getText().charAt(0));
+    }
 
     @Test
     // In progress - aiming for : when text count of lowercase NonWhitespaceChars is equal to currentPointDurability,

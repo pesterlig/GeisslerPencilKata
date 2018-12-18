@@ -80,6 +80,12 @@ public class Pencil {
                 paper.setText(" ");
                 setCurrentPointDurability(ch);
             }
+            if ((currentPointDurability == 0) && ((!Character.isWhitespace(ch)))) {
+                String visibleText = ch.toString();
+                paper.setText(" ");
+                setCurrentPointDurability(ch);
+            }
+
         }
     }
 
