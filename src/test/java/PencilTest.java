@@ -63,7 +63,7 @@ public class PencilTest {
     // In progress - aiming for : when text count of lowercase NonWhitespaceChars is equal to currentPointDurability,
     // text still prints exactly as written
     public void whenPencilWritesFewerCharactersAndSpacesThanCurrentDurability_thenPaperGetTextReturnsThoseCharactersAndSpaces() {
-        String testText = "blah blah";
+        String testText = " blah blah";
         pencil = new Pencil(20, 20);
         pencil.write(testText, paper);
         assertEquals(" blah blah", paper.getText());
