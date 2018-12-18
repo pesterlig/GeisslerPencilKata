@@ -23,6 +23,33 @@ public class Pencil {
         return count;
     }
 
+    public int countWhitespaceChars(String text) {
+
+        int count = 0;
+        for (int i = 0; i < text.length(); i++) {
+
+            Character ch = text.charAt(i);
+            if (Character.isWhitespace(ch)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int countUppercaseChars(String text) {
+
+        int count = 0;
+        for (int i = 0; i < text.length(); i++) {
+
+            Character ch = text.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+
     public void write(String text, Paper paper) {
 
         for (int i = 0; i < text.length(); i++) {

@@ -70,12 +70,27 @@ public class PencilTest {
     */
 
     @Test
-    public void whenPencilTextIsEntered_thenCountNonWhitespaceCharsReturnsACountOfAllNonWhitespaceChars(){
-        pencil = new Pencil(40,40);
+    public void whenPencilTextIsEntered_thenCountNonWhitespaceCharsReturnsACountOfAllNonWhitespaceChars() {
+        pencil = new Pencil(40, 40);
         String testText = "Half of Large Intestine\nEquals 1 ; ";
         pencil.countNonWhitespaceChars(testText);
-        assertEquals(28,pencil.countNonWhitespaceChars(testText));
+        assertEquals(28, pencil.countNonWhitespaceChars(testText));
+    }
 
+    @Test
+    public void whenPencilTextIsEntered_thenCountWhitespaceCharsReturnsACountOfAllWhitespaceChars() {
+        pencil = new Pencil(40, 40);
+        String testText = "Half of Large Intestine\nEquals 1 ; ";
+        pencil.countWhitespaceChars(testText);
+        assertEquals(7, pencil.countWhitespaceChars(testText));
+    }
+
+    @Test
+    public void whenPencilTextIsEntered_thenCountUppercaseCharsReturnsACountOfAllUppercaseChars() {
+        pencil = new Pencil(40, 40);
+        String testText = "Half of Large Intestine\nEquals 1 ; ";
+        pencil.countWhitespaceChars(testText);
+        assertEquals(4, pencil.countUppercaseChars(testText));
     }
 
 
