@@ -40,8 +40,16 @@ public class PencilTest {
         assertEquals("\n", paper.getText());
     }
 
+    @Test
+    public void whenDurabilityIs2orMre_thenPaperGetTextReturnsAnyOneCharacterExactly() {
+        prepContextForWriteMethodTests("P", 20, 2);
+        assertEquals("P", paper.getText());
+    }
+
 
     @Test
+    // In progress - aiming for : when text count of lowercase NonWhitespaceChars is equal to currentPointDurability,
+    // text still prints exactly as written
     public void whenPencilWritesFewerCharactersAndSpacesThanCurrentDurability_thenPaperGetTextReturnsThoseCharactersAndSpaces() {
         String testText = "blah blah";
         pencil = new Pencil(20, 20);
@@ -92,6 +100,12 @@ public class PencilTest {
         pencil.countWhitespaceChars(testText);
         assertEquals(4, pencil.countUppercaseChars(testText));
     }
+
+    /*
+    Now I can enter visibleText into the count methods and see if things are writing properly.
+    Seems like the methods in Pencil for the three above tests are for testing purposes
+    and should not exist in production code...refactor later?
+    */
 
 
     /*pencil durability needs to change as each character is written - it needs to receive char as an argument
