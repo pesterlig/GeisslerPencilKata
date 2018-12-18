@@ -49,6 +49,10 @@ public class Pencil {
         return count;
     }
 
+    /*
+    refactor the write() method below to extract the messy conditionals and make code easier to read and understand
+    Look up how to do this - look up clean coding books
+    */
 
     public void write(String text, Paper paper) {
 
@@ -69,6 +73,11 @@ public class Pencil {
             if ((currentPointDurability == 0) && ((Character.isWhitespace(ch)))) {
                 String visibleText = ch.toString();
                 paper.setText(visibleText);
+                setCurrentPointDurability(ch);
+            }
+            if ((currentPointDurability == 1) && ((Character.isUpperCase(ch)))) {
+                String visibleText = ch.toString();
+                paper.setText(" ");
                 setCurrentPointDurability(ch);
             }
         }
