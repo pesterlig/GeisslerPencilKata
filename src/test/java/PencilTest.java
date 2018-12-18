@@ -63,7 +63,21 @@ public class PencilTest {
         assertEquals("Blah \n Blah Blah\r", paper.getText());
     }
 
-    //how do I know the tests above are universal and non-trivial?  They are getting ridiculous...
+    /*
+    how do I know the tests above are universal and non-trivial?  They are getting ridiculous...
+    Need to count both whitespace and nonwhitespace chars in a given text, plus uppercase chars to use for comparisons
+    to see that pencil is writing properly
+    */
+
+    @Test
+    public void whenPencilTextIsEntered_thenCountNonWhitespaceCharsReturnsACountOfAllNonWhitespaceChars(){
+        pencil = new Pencil(40,40);
+        String testText = "Half of Large Intestine\nEquals 1 ; ";
+        pencil.countNonWhitespaceChars(testText);
+        assertEquals(28,pencil.countNonWhitespaceChars(testText));
+
+    }
+
 
     /*pencil durability needs to change as each character is written - it needs to receive char as an argument
     write tests to make setCurrentPointDurability take chars as argument and return CPD for each case:Uppercase, lowercase, whitespace*/

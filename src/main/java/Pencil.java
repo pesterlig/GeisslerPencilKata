@@ -10,6 +10,19 @@ public class Pencil {
         this.currentPointDurability = currentPointDurability;
     }
 
+    public int countNonWhitespaceChars(String text) {
+
+        int count = 0;
+        for (int i = 0; i < text.length(); i++) {
+
+            Character ch = text.charAt(i);
+            if (!Character.isWhitespace(ch)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public void write(String text, Paper paper) {
 
         for (int i = 0; i < text.length(); i++) {
@@ -21,7 +34,7 @@ public class Pencil {
                 paper.setText(visibleText);
                 setCurrentPointDurability(ch);
             }
-            if ((currentPointDurability == 0) && ( (Character.isWhitespace(ch) ) ) ) {
+            if ((currentPointDurability == 0) && ((Character.isWhitespace(ch)))) {
                 String visibleText = ch.toString();
                 paper.setText(visibleText);
                 setCurrentPointDurability(ch);
