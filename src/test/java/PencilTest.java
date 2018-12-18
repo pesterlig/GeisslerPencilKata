@@ -14,18 +14,23 @@ public class PencilTest {
         paper = new Paper();
     }
 
-    @Test
+    /*@Test
     public void whenPencilWritesAString_thenPaperSetsText() {
         pencil.write("blah", paper);
         assertEquals("blah", "blah");
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void whenPencilWriteSetsTextOnPaper_thenGetTextReturnsTheTextValueAndAddsNewTextToIt() {
         paper.setText("blah");
         pencil.write("blah", paper);
         assertEquals("blahblah", paper.getText());
-    }
+    }*/
+
+    //Tests for the Write() method, which checks currentPointDurability and adds characters to String array called: visibleText and calls paper.setText
+
+
+
 
     /*@Test
     public void whenPencilWritesAnyCharacter_thenDecrementItsCurrentPointDurabilityOncePerCharacter() {
@@ -36,6 +41,24 @@ public class PencilTest {
         assertEquals(11, pencil.getCurrentPointDurability());
     }*/
 
+    @Test
+    public void whenPencilTextIsOneLowercaseCharAndDurabilityIs1_thenPaperGetTextMethodReturnsThatChar(){
+        String testText = "b";
+        pencil = new Pencil(20,1);
+        pencil.write(testText,paper);
+        assertEquals("b", paper.getText());
+
+    }
+
+    @Test
+    public void whenPencilTextIsAWhitespaceCharAndDurabilityIs0_thenPaperGetTextMethodReturnsThatChar(){
+        String testText = "\n";
+        pencil = new Pencil(20,0);
+        pencil.write(testText,paper);
+        assertEquals("\n", paper.getText());
+
+    }
+
 
     /*@Test //save for later...
     public void whenPencilWritesSpaces_thenCurrentPointDurabilityIsNotChanged() {
@@ -44,9 +67,9 @@ public class PencilTest {
     }*/
 
 
-    // Three tests below are from when I was using a String argument for setCurrentPointDurabilty
+    // Three tests below are from when I was using a String argument for setCurrentPointDurability
 
-      /* @Test
+       @Test
     public void whenPencilWritesCharactersAndSpaces_thenCurrentPointDurabilityCountsCharactersOnly() {
         prepContextForDurabilityTests(" blah blah ", 20);
         assertEquals(12, pencil.getCurrentPointDurability());
@@ -65,44 +88,34 @@ public class PencilTest {
     public void whenPencilWritesAString_thenCurrentPointDurabilityIsUnaffectedByNewlineCharacters() {
         prepContextForDurabilityTests("Blah \n Blah Blah\r", 20);
         assertEquals(5, pencil.getCurrentPointDurability());
-    }*/
+    }
 
     /*pencil durability needs to change as each character is written - it needs to receive char as an argument
     write tests to make setCurrentPointDurability take chars as argument and return CPD for each case:Uppercase, lowercase, whitespace*/
 
     @Test
     public void whenCurrentPointDurabilityGreaterThanOrEquals2AndCharacterIsUppercase_thenCurrentPointDurabilityIsReducedBy2() {
-        Character ch = 'A';
-        Pencil pencil = new Pencil(20, 2);
-        pencil.setCurrentPointDurability(ch);
+        prepContextSetDurabilityText('A', 20, 2);
         assertEquals(0, pencil.getCurrentPointDurability());
     }
 
     @Test
     public void whenCurrentPointDurabilityGreaterThanOrEquals1AndCharacterIsLowercase_thenCurrentPointDurabilityIsReducedBy1() {
-        Character ch = 'a';
-        Pencil pencil = new Pencil(20, 1);
-        pencil.setCurrentPointDurability(ch);
+        prepContextSetDurabilityText('a', 20, 1);
         assertEquals(0, pencil.getCurrentPointDurability());
     }
 
     @Test
     public void whenCurrentPointDurabilityGreaterThanOrEquals0AndCharacterIsNewline_thenCurrentPointDurabilityRemainsTheSame() {
-        Character ch = '\n';
-        Pencil pencil = new Pencil(20, 0);
-        pencil.setCurrentPointDurability(ch);
+        prepContextSetDurabilityText('\n', 20, 0);
         assertEquals(0, pencil.getCurrentPointDurability());
     }
 
     @Test
     public void whenCurrentPointDurabilityGreaterThanOrEquals1AndCharacterIsNoTUppercaseAndNotWhitespace_thenCurrentPointDurabilityIsReducedBy1() {
-        Character ch = '$';
-        Pencil pencil = new Pencil(20, 1);
-        pencil.setCurrentPointDurability(ch);
+        prepContextSetDurabilityText('$', 20, 1);
         assertEquals(0, pencil.getCurrentPointDurability());
     }
-
-
 
 
     //Context Methods extracted from tests
@@ -111,5 +124,11 @@ public class PencilTest {
         pencil.write(testText, paper);
         pencil.setInitialPointDurability(initialPointDurability);
         pencil.setCurrentPointDurability(testText.charAt(0));
+    }
+
+    private void prepContextSetDurabilityText(Character testCh, int initialPointDurability, int currentPointDurability) {
+        pencil = new Pencil(initialPointDurability, currentPointDurability);
+        pencil.setCurrentPointDurability(testCh);
+
     }
 }

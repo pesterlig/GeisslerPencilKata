@@ -10,8 +10,23 @@ public class Pencil {
         this.currentPointDurability = currentPointDurability;
     }
 
-    public void write(String content, Paper paper) {
-        paper.setText(content);
+    public void write(String text, Paper paper) {
+
+        for (int i = 0; i < text.length(); i++) {
+
+            Character ch = text.charAt(i);
+
+            if ((currentPointDurability == 1) && ((Character.isWhitespace(ch)) || (!Character.isUpperCase(ch)))) {
+                String visibleText = ch.toString();
+                paper.setText(visibleText);
+                setCurrentPointDurability(ch);
+            }
+            if ((currentPointDurability == 0) && ( (Character.isWhitespace(ch) ) ) ) {
+                String visibleText = ch.toString();
+                paper.setText(visibleText);
+                setCurrentPointDurability(ch);
+            }
+        }
     }
 
 
@@ -51,10 +66,10 @@ public class Pencil {
             currentPointDurability -= 1;
         }
         if ((currentPointDurability >= 1) && (Character.isWhitespace(ch))) {
-            currentPointDurability -=0;
+            currentPointDurability -= 0;
         }
 
-        this.currentPointDurability =  currentPointDurability;
+        this.currentPointDurability = currentPointDurability;
     }
 
 }
