@@ -63,28 +63,29 @@ public class Pencil {
             if (currentPointDurability >= 2) {
                 String visibleText = ch.toString();
                 paper.setText(visibleText);
-                setCurrentPointDurability(ch);
+
             }
             if ((currentPointDurability == 1) && ((Character.isWhitespace(ch)) || (!Character.isUpperCase(ch)))) {
                 String visibleText = ch.toString();
                 paper.setText(visibleText);
-                setCurrentPointDurability(ch);
+
             }
             if ((currentPointDurability == 0) && ((Character.isWhitespace(ch)))) {
                 String visibleText = ch.toString();
                 paper.setText(visibleText);
-                setCurrentPointDurability(ch);
+
             }
             if ((currentPointDurability == 1) && ((Character.isUpperCase(ch)))) {
-                String visibleText = ch.toString();
-                paper.setText(" ");
-                setCurrentPointDurability(ch);
+                String visibleText = " ";
+                paper.setText(visibleText);
+
             }
             if ((currentPointDurability == 0) && ((!Character.isWhitespace(ch)))) {
-                String visibleText = ch.toString();
-                paper.setText(" ");
-                setCurrentPointDurability(ch);
+                String visibleText = " ";
+                paper.setText(visibleText);
             }
+            setCurrentPointDurability(ch);
+
 
         }
     }

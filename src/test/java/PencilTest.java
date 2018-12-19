@@ -76,6 +76,12 @@ public class PencilTest {
         assertEquals("Bl  ", paper.getText());
     }
 
+    @Test
+    public void whenPencilCapitalizesBlahAndDurabilityIs2_thenPaperGetTextReturnsBPlus3Spaces() {
+        prepContextForWriteMethodTests("Blah", 20, 2);
+        assertEquals("B   ", paper.getText());
+    }
+
 
     @Test
     public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_AndNonWhitespaceCharsAreEqualToDurability_thenPaperGetTextReturnsTheEntireText() {
