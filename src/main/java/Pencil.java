@@ -123,6 +123,9 @@ public class Pencil {
         if ((currentPointDurability >= 2) && (Character.isUpperCase(ch))) {
             currentPointDurability -= 2;
         }
+        if ((currentPointDurability >= 1) && (Character.isUpperCase(ch))) {
+            currentPointDurability -= 0;
+        }
         if ((currentPointDurability >= 1) && (!Character.isUpperCase(ch))) {
             currentPointDurability -= 1;
         }

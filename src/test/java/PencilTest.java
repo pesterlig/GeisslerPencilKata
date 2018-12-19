@@ -4,9 +4,16 @@ import org.junit.Test;
 import static junit.framework.TestCase.*;
 
 public class PencilTest {
+    /*
+    Leaving this test suite and test class for the time being - want to approach the problem in a more agile way
+    do a sprint to make a complete pencil with length, pointDurability, and an eraser
+    but with only basic capabilities for each...not taking too much time - maybe just an afternoon sprint
+    feels like I'm getting bogged down and haven't used testing wisely to help me step thru the logic
+    */
+    Paper paper;
 
     Pencil pencil;
-    Paper paper;
+
 
     @Before
     public void setUp() {
@@ -89,6 +96,27 @@ public class PencilTest {
         assertEquals("Blah \n Blah Blah\r", paper.getText());
     }
 
+    @Test //this test found that the method added three whitespace char
+    public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_thenCountWhitespaceIsEqualforTestTextAndVisibleText(){
+     prepContextForWriteMethodTests("Blah \n Blah Blah\r",50,15);
+     assertEquals(pencil.countWhitespaceChars("Blah \n Blah Blah\r"),pencil.countWhitespaceChars(paper.getText()));
+    }
+
+    @Test //this test found that the method lost an Uppercase char
+    public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_thenCountUppercaseIsEqualforTestTextAndVisibleText(){
+        prepContextForWriteMethodTests("Blah \n Blah Blah\r",50,15);
+        assertEquals(pencil.countUppercaseChars("Blah \n Blah Blah\r"),pencil.countUppercaseChars(paper.getText()));
+    }
+
+    @Test //this test found that the method lost three Non Whitespace chars
+    public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_thenCountNonWhitespaceIsEqualforTestTextAndVisibleText(){
+        prepContextForWriteMethodTests("Blah \n Blah Blah\r",50,15);
+        assertEquals(pencil.countNonWhitespaceChars("Blah \n Blah Blah\r"),pencil.countNonWhitespaceChars(paper.getText()));
+    }
+
+
+
+
     /*
     how do I know the tests above are universal and non-trivial?  They are getting ridiculous...
     Need to count both whitespace and nonwhitespace chars in a given text, plus uppercase chars to use for comparisons
@@ -166,6 +194,8 @@ public class PencilTest {
         pencil = new Pencil(initialPointDurability, currentPointDurability);
         pencil.write(testText, paper);
     }
+
+
 
 
 }
