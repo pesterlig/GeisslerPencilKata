@@ -19,14 +19,14 @@ public class Pencil2Test {
     public void whenSharpenIsCalled_thenCurrentPointDurabilityIsSetToInitialPointDurability() {
         Pencil2 pencil = new Pencil2(50, 3, 10, 10, 10);
         pencil.sharpen();
-        assertEquals(pencil.getInitialPointDurability(),pencil.getCurrentPointDurability());
+        assertEquals(pencil.getInitialPointDurability(), pencil.getCurrentPointDurability());
     }
 
     @Test
-    public void whenSharpenIsCalled_thenLengthIsDecreasedBy1(){
-        Pencil2 pencil = new Pencil2(50,3,10,10,10);
+    public void whenSharpenIsCalled_thenLengthIsDecreasedBy1() {
+        Pencil2 pencil = new Pencil2(50, 3, 10, 10, 10);
         pencil.sharpen();
-        assertEquals(9,pencil.getLength());
+        assertEquals(9, pencil.getLength());
     }
 
     //Testing the Pencil2.erase(String text, Paper paper) method that removes written characters from paper and compares to paper.getText()
@@ -35,10 +35,11 @@ public class Pencil2Test {
         String testText = "Blah";
         Pencil2 pencil = new Pencil2(50, 50, 10, 10, 3);
         Paper paper = new Paper();
-        pencil.write(testText,paper);
+        pencil.write(testText, paper);
         pencil.erase(testText, paper);
         assertEquals("B   ", paper.getText());
 
 
-
+    }
 }
+
