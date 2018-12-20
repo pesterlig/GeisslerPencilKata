@@ -31,6 +31,28 @@ public class Pencil2Test {
 
     //Testing the Pencil2.erase(String text, Paper paper) method that removes written characters from paper and compares to paper.getText()
     @Test
+    public void givenEraseTextWhichIsASubstringOfPaperGetText_thenReturnAnIntegerValueForIndexOfTheFirstCharacterOfTheLastOccurance() {
+        String testText = "OMG! Blah Blah";
+        String testErasableText = "Blah";
+        Pencil2 pencil = new Pencil2(50, 50, 10, 50, 50);
+        Paper paper = new Paper();
+        pencil.write(testText, paper);
+        pencil.erase(testErasableText, paper);
+        assertEquals(10, pencil.erase(testErasableText, paper));
+    }
+
+    @Test
+    public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces() {
+        String testText = "OMG! Blah Blah";
+        String testErasableText = "Blah";
+        Pencil2 pencil = new Pencil2(50, 50, 10, 50, 50);
+        Paper paper = new Paper();
+        pencil.write(testText, paper);
+        pencil.erase(testErasableText, paper);
+        assertEquals("OMG! Blah     ", paper.getText());
+    }
+
+    @Test
     public void whenEraseTextArgIs4AndEraserDurabilityIs3_thenTheLast3CharsAreReplacedWithBlankSpacesOnPaper() {
         String testText = "Blah";
         Pencil2 pencil = new Pencil2(50, 50, 10, 10, 3);

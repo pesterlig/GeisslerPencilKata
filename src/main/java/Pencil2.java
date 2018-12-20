@@ -1,4 +1,6 @@
 import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class Pencil2 {
 
@@ -17,7 +19,8 @@ public class Pencil2 {
     }
 
     public void write(String text, Paper paper) {
-        String visibleText;
+        String content = paper.getText();
+        String visibleText = "";
         for (int i = 0; i < text.length(); i++) {
             Character ch = text.charAt(i);
             if (currentPointDurability >= 1) {
@@ -26,22 +29,46 @@ public class Pencil2 {
             } else {
                 visibleText = " ";
             }
-            paper.setText(visibleText);
+            visibleText += visibleText;
 
         }
+        paper.setText(content+visibleText);
     }
 
-    public void erase(String text, Paper paper) {
-        char[] textArray = text.toCharArray();
+    public int erase(String text, Paper paper) {
+
+        int beginningIndexForErasableText = paper.getText().lastIndexOf(text);
         String content = paper.getText();
-        char[] contentArray = content.toCharArray();
+
+
+        //char[] contentArray = content.toCharArray();
         int countErasableChars = 0;
         if (text.length() > currentEraserDurability) {
             countErasableChars = currentEraserDurability;
+            char arrayOfReplacementBlankSpaces[] = new char[currentEraserDurability];
         } else {
             countErasableChars = text.length();
+            char arrayOfReplacementBlankSpaces[] = new char[countErasableChars];
+            Arrays.fill(arrayOfReplacementBlankSpaces, ' ');
+            String erasedText = new String(arrayOfReplacementBlankSpaces);
+            StringBuilder stringBuilder = new StringBuilder(content);
+            stringBuilder.replace(beginningIndexForErasableText,text.length()+beginningIndexForErasableText,erasedText);
+            paper.setText(stringBuilder.toString());
+            currentEraserDurability -= countErasableChars;
+            setCurrentEraserDurability(currentEraserDurability);
+
+            /*myWord is the original word sayAABDCAADEF. sourceWord is what you want to replace,
+            say AA targetWord is what you want to replace it with say BB.
+
+StringBuilder strb=new StringBuilder(myWord);
+int index=strb.lastIndexOf(sourceWord);
+strb.replace(index,sourceWord.length()+index,targetWord);
+return strb.toString();
+            */
+
         }
-        //traverse the array backwards looking for a pattern match & replace it with blanks
+
+        return beginningIndexForErasableText;
     }
 
 

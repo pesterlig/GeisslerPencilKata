@@ -1,13 +1,13 @@
 public class Paper {
 
-    private String text;
+    private String text = "";
 
     public Paper() {
-        this.text = "";
+        this.text = text;
     }
 
     public void setText(String text) {
-        this.text += text;
+        this.text = text;
     }
 
 
