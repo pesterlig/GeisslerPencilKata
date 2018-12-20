@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class Pencil2 {
 
     private int initialPointDurability;
@@ -14,12 +16,12 @@ public class Pencil2 {
         this.currentEraserDurability = currentEraserDurability;
     }
 
-    public void write(String text, Paper paper){
+    public void write(String text, Paper paper) {
         String visibleText;
-        for(int i = 0; i < text.length(); i++){
+        for (int i = 0; i < text.length(); i++) {
             Character ch = text.charAt(i);
-            if (currentPointDurability >= 1){
-                 visibleText = ch.toString();
+            if (currentPointDurability >= 1) {
+                visibleText = ch.toString();
                 currentPointDurability -= 1;
             } else {
                 visibleText = " ";
@@ -27,7 +29,31 @@ public class Pencil2 {
             paper.setText(visibleText);
 
         }
+    }
 
+    public void erase(String text, Paper paper) {
+        char[] textArray = text.toCharArray();
+        String content = paper.getText();
+        char[] contentArray = content.toCharArray();
+        int countErasableChars = 0;
+        if (text.length() > currentEraserDurability) {
+            countErasableChars = currentEraserDurability;
+        } else {
+            countErasableChars = text.length();
+        }
+        //traverse the array backwards looking for a pattern match & replace it with blanks
+    }
+
+
+    public void sharpen() {
+        currentPointDurability = initialPointDurability;
+        setCurrentPointDurability(currentPointDurability);
+        length -= 1;
+        setLength(length);
+    }
+
+    public int getInitialPointDurability() {
+        return initialPointDurability;
     }
 
     public int getCurrentPointDurability() {
