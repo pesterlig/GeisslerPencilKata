@@ -95,8 +95,8 @@ return strb.toString();
             for (int i = 0; i < length; i++) {
                 Character ch = text.charAt(i);
                 String stringCharacter = ch.toString();
-                stringCharacter.replace(ch, ' ');
-                blankText += stringCharacter;
+                String blankSpace = stringCharacter.replace(stringCharacter, " ");
+                blankText += blankSpace;
                 count++;
             }
             return blankText;

@@ -1,4 +1,6 @@
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.Result;
 
 import static junit.framework.TestCase.*;
 /*
@@ -19,22 +21,21 @@ public class Pencil2Test {
     Pencil2 pencil;
 
 
-
     @Test
     public void givenPointDurabilityGreaterThanInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
-        prepContextForWhenPencilWrites("Blah",50,10,20);
+        prepContextForWhenPencilWrites("Blah", 50, 10, 20);
         assertEquals("Blah", paper.getText());
     }
 
     @Test
     public void givenPointDurabilityGreaterThanLongInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
-        prepContextForWhenPencilWrites("War does not determine who's right-\nWar determines who's left",100,10,20);
+        prepContextForWhenPencilWrites("War does not determine who's right-\nWar determines who's left", 100, 10, 20);
         assertEquals("War does not determine who's right-\nWar determines who's left", paper.getText());
     }
     //can't assert the same thing multiple times in the same test, but could assert different things to test multiple parts of a complex method?
 
 
-    private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability){
+    private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability) {
         pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
         paper = new Paper();
         pencil.write(testText, paper);
@@ -57,22 +58,44 @@ public class Pencil2Test {
 
     //Testing the Pencil2.erase(String text, Paper paper) method that removes written characters from paper and compares to paper.getText()
     @Test
-    public void givenTextStringInput_whenReverseIsCalled_thenTheSameStringBackwardsIsReturned(){
+    public void givenTextStringInput_whenReverseIsCalled_thenTheSameStringBackwardsIsReturned() {
         Pencil2 pencil = new Pencil2(100, 10, 20);
         String testText = "War does";
         pencil.reverse(testText);
-        assertEquals("seod raW",pencil.reverse(testText));
-
+        assertEquals("seod raW", pencil.reverse(testText));
     }
+
     @Test
-    public void givenTextToErase_whenPencilErases_thenPaperGetTextReplacesTheLastOccurenceOfTextWithBlankSpaces(){
-        prepContextForGivenTextToErase("War does not determine who's right-\nWar determines who's left","who",100,10,20);
-        assertEquals("War does not determine who's right-\nWar determines    's left",paper.getText());
+    public void givenTextStringInput_whenCreateBlankIsCalled_thenAStringOfSpacesOfTextLengthIsReturned() {
+        Pencil2 pencil = new Pencil2(100, 10, 20);
+        String testText = "War does";
+        pencil.createBlankTextOfLength(testText,testText.length());
+        assertEquals("        ", pencil.createBlankTextOfLength(testText, testText.length()));
+
+
+        /*@Test
+        public void testSomeMethod() {
+            // Set up test data specific to this test.
+            Specific specific = new Specific(7);
+
+            // Perform method under test with test-specific and pre-initialized data.
+            Result result = objectUnderTest.someMethod(preInitialized, specific);
+
+            // Make assertions about the result.
+            assertThat(result.someProperty(), is(12));
+        }*/
+    }
+
+    @Test
+    public void givenTextToErase_whenPencilErases_thenPaperGetTextReplacesTheLastOccurenceOfTextWithBlankSpaces() {
+        prepContextForGivenTextToErase("War does not determine who's right-\nWar determines who's left", "who", 100, 10, 20);
+        assertEquals("War does not determine who's right-\nWar determines    's left", paper.getText());
 
     }
 
-    private void prepContextForGivenTextToErase(String testText, String testTextToErase, int initialPointDurability, int length, int initialEraserDurability){
-        Pencil2 pencil = new Pencil2(initialPointDurability, length, initialEraserDurability) ;
+    private void prepContextForGivenTextToErase(String testText, String testTextToErase, int initialPointDurability,
+                                                int length, int initialEraserDurability) {
+        Pencil2 pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
         Paper paper = new Paper();
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
@@ -92,7 +115,8 @@ public class Pencil2Test {
     }*/
 
     @Test
-    public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces() {
+    public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces
+            () {
         String testText = "OMG! Blah Blah";
         String testErasableText = "Blah";
         Pencil2 pencil = new Pencil2(50, 50, 10, 50, 50);
