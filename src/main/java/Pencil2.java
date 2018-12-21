@@ -72,9 +72,39 @@ return strb.toString();
         return beginningIndexForErasableText;
     }*/
 
-    public void erase(String textToErase, Paper paper){
-        String reversedContent = paper.getText()
+    public void erase(String textToErase, Paper paper) {
+        //reverse the contents of the text on the paper
+        String backwardsContent = reverse(paper.getText());
+        //reverse the textToErase
+        String backwardsTextToErase = reverse(textToErase);
+        //Get the count of chars to replace
 
+
+        //replace the textToErase with blank spaces
+        String contentWithErasedText = backwardsContent.replaceFirst(Pattern.quote(backwardsTextToErase),)
+
+
+
+    }
+
+    private String createBlankTextOfProperLength(String text, int length){
+        int count = 0;
+        String blankText = "";
+        for(int i = 0; i < length; i++){
+            Character ch = text.charAt(i);
+            String stringCharacter = ch.toString();
+            stringCharacter.replace(ch, ' ');
+            blankText += stringCharacter;
+            count++;
+        }
+        return blankText;
+    }
+
+    private String reverse(String text){
+        StringBuffer stringBufferContent = new StringBuffer(text);
+        stringBufferContent = stringBufferContent.reverse();
+        String reversed = stringBufferContent.toString();
+        return reversed;
     }
 
 
