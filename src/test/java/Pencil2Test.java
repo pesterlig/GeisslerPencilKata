@@ -1,5 +1,3 @@
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
@@ -10,8 +8,8 @@ Sprint Goals for Friday 12/21
     1.) Make test more general and assert multiple times within the same test for specific cases (per BL advice) - Done-ish - came to a different understanding about this
     2.) Fix the write method in Pencil2 - Done!
     2.5) (Note: Remember the overloaded pencil constructor and make use as needed, remove currentEraserDurability as well) - Done
-    3.) Extract the durability method that takes a ch arg from the setter and call it something else (per BL advice)
-    4.) Work on the erase method using reverse String and split String
+    3.) Extract the durability method that takes a ch arg from the setter and call it something else (per BL advice) - issue with Pencil, not Pencil2 - skipping for now, but will do correctly later
+    4.) Work on the erase method using reverse String and split String - at end of 4th pomodoro...working on it - taking 1/2hr break
 
 */
 
@@ -20,17 +18,23 @@ public class Pencil2Test {
     Paper paper;
     Pencil2 pencil;
 
-    @Before
+
 
     @Test
-    public void givenPointDurabilityLessThanInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
-        prepContextGivenPointDurabilityLessThanInputTextLength("Blah",50,10,20);
+    public void givenPointDurabilityGreaterThanInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
+        prepContextForWhenPencilWrites("Blah",50,10,20);
         assertEquals("Blah", paper.getText());
+    }
+
+    @Test
+    public void givenPointDurabilityGreaterThanLongInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
+        prepContextForWhenPencilWrites("War does not determine who's right-\nWar determines who's left",100,10,20);
+        assertEquals("War does not determine who's right-\nWar determines who's left", paper.getText());
     }
     //can't assert the same thing multiple times in the same test, but could assert different things to test multiple parts of a complex method?
 
 
-    private void prepContextGivenPointDurabilityLessThanInputTextLength(String testText, int initialPointDurability, int length, int initialEraserDurability){
+    private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability){
         pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
         paper = new Paper();
         pencil.write(testText, paper);
@@ -52,6 +56,22 @@ public class Pencil2Test {
     }
 
     //Testing the Pencil2.erase(String text, Paper paper) method that removes written characters from paper and compares to paper.getText()
+    @Test
+    public void givenTextToErase_whenPencilErases_thenPaperGetTextReplacesTheLastOccurenceOfTextWithBlankSpaces(){
+        prepContextForGivenTextToErase("War does not determine who's right-\nWar determines who's left","who",100,10,20);
+        assertEquals("War does not determine who's right-\nWar determines    's left",paper.getText());
+
+    }
+
+    private void prepContextForGivenTextToErase(String testText, String testTextToErase, int initialPointDurability, int length, int initialEraserDurability){
+        Pencil2 pencil = new Pencil2(initialPointDurability, length, initialEraserDurability) ;
+        Paper paper = new Paper();
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+    }
+    //Question: Can I assert things that variables within a method are equal to expected, or is it only the returns I can compare to?
+
+
     @Test
     public void givenEraseTextWhichIsASubstringOfPaperGetText_thenReturnAnIntegerValueForIndexOfTheFirstCharacterOfTheLastOccurance() {
         String testText = "OMG! Blah Blah";

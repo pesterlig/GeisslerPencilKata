@@ -44,12 +44,8 @@ public class Pencil2 {
     }
 
 
-    public int erase(String text, Paper paper) {
-
+    /*public int erase(String text, Paper paper) {
         int beginningIndexForErasableText = paper.getText().lastIndexOf(text);
-        String content = paper.getText();
-
-
         //char[] contentArray = content.toCharArray();
         int countErasableChars = 0;
         if (text.length() > currentEraserDurability) {
@@ -65,19 +61,20 @@ public class Pencil2 {
             paper.setText(stringBuilder.toString());
             currentEraserDurability -= countErasableChars;
             setCurrentEraserDurability(currentEraserDurability);
-
-            /*myWord is the original word sayAABDCAADEF. sourceWord is what you want to replace,
+            *//*myWord is the original word sayAABDCAADEF. sourceWord is what you want to replace,
             say AA targetWord is what you want to replace it with say BB.
-
 StringBuilder strb=new StringBuilder(myWord);
 int index=strb.lastIndexOf(sourceWord);
 strb.replace(index,sourceWord.length()+index,targetWord);
 return strb.toString();
-            */
-
+            *//*
         }
-
         return beginningIndexForErasableText;
+    }*/
+
+    public void erase(String textToErase, Paper paper){
+        String reversedContent = paper.getText()
+
     }
 
 
