@@ -57,6 +57,14 @@ public class Pencil2Test {
 
     //Testing the Pencil2.erase(String text, Paper paper) method that removes written characters from paper and compares to paper.getText()
     @Test
+    public void givenTextStringInput_whenReverseIsCalled_thenTheSameStringBackwardsIsReturned(){
+        Pencil2 pencil = new Pencil2(100, 10, 20);
+        String testText = "War does";
+        pencil.reverse(testText);
+        assertEquals("seod raW",pencil.reverse(testText));
+
+    }
+    @Test
     public void givenTextToErase_whenPencilErases_thenPaperGetTextReplacesTheLastOccurenceOfTextWithBlankSpaces(){
         prepContextForGivenTextToErase("War does not determine who's right-\nWar determines who's left","who",100,10,20);
         assertEquals("War does not determine who's right-\nWar determines    's left",paper.getText());
@@ -72,7 +80,7 @@ public class Pencil2Test {
     //Question: Can I assert things that variables within a method are equal to expected, or is it only the returns I can compare to?
 
 
-    @Test
+   /* @Test
     public void givenEraseTextWhichIsASubstringOfPaperGetText_thenReturnAnIntegerValueForIndexOfTheFirstCharacterOfTheLastOccurance() {
         String testText = "OMG! Blah Blah";
         String testErasableText = "Blah";
@@ -80,8 +88,8 @@ public class Pencil2Test {
         Paper paper = new Paper();
         pencil.write(testText, paper);
         pencil.erase(testErasableText, paper);
-        assertEquals(10, pencil.erase(testErasableText, paper));
-    }
+        assertEquals(10, pencil.erase(testErasableText, ));
+    }*/
 
     @Test
     public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces() {

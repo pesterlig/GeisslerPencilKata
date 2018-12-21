@@ -80,66 +80,70 @@ return strb.toString();
         //Get the count of chars to replace
 
 
-        //replace the textToErase with blank spaces
-        String contentWithErasedText = backwardsContent.replaceFirst(Pattern.quote(backwardsTextToErase),)
+       /* //replace the textToErase with blank spaces
+        String contentWithErasedText = backwardsContent.replaceFirst(Pattern.quote(backwardsTextToErase),//replacement text go here)
 
 
+
+    }*/
 
     }
 
-    private String createBlankTextOfProperLength(String text, int length){
-        int count = 0;
-        String blankText = "";
-        for(int i = 0; i < length; i++){
-            Character ch = text.charAt(i);
-            String stringCharacter = ch.toString();
-            stringCharacter.replace(ch, ' ');
-            blankText += stringCharacter;
-            count++;
+        public String createBlankTextOfLength (String text,int length){
+            int count = 0;
+            String blankText = "";
+            for (int i = 0; i < length; i++) {
+                Character ch = text.charAt(i);
+                String stringCharacter = ch.toString();
+                stringCharacter.replace(ch, ' ');
+                blankText += stringCharacter;
+                count++;
+            }
+            return blankText;
         }
-        return blankText;
-    }
 
-    private String reverse(String text){
-        StringBuffer stringBufferContent = new StringBuffer(text);
-        stringBufferContent = stringBufferContent.reverse();
-        String reversed = stringBufferContent.toString();
-        return reversed;
-    }
+        public String reverse (String text){
+            StringBuffer stringBufferContent = new StringBuffer(text);
+            stringBufferContent = stringBufferContent.reverse();
+            String reversed = stringBufferContent.toString();
+            return reversed;
+        }
 
 
-    public void sharpen() {
-        currentPointDurability = initialPointDurability;
-        setCurrentPointDurability(currentPointDurability);
-        length -= 1;
-        setLength(length);
+        public void sharpen () {
+            currentPointDurability = initialPointDurability;
+            setCurrentPointDurability(currentPointDurability);
+            length -= 1;
+            setLength(length);
+        }
+
+        public int getInitialPointDurability () {
+            return initialPointDurability;
+        }
+
+        public int getCurrentPointDurability () {
+            return currentPointDurability;
+        }
+
+        public void setCurrentPointDurability ( int currentPointDurability){
+            this.currentPointDurability = currentPointDurability;
+        }
+
+        public int getLength () {
+            return length;
+        }
+
+        public void setLength ( int length){
+            this.length = length;
+        }
+
+        public int getCurrentEraserDurability () {
+            return currentEraserDurability;
+        }
+
+        public void setCurrentEraserDurability ( int currentEraserDurability){
+            this.currentEraserDurability = currentEraserDurability;
+        }
     }
 
-    public int getInitialPointDurability() {
-        return initialPointDurability;
-    }
 
-    public int getCurrentPointDurability() {
-        return currentPointDurability;
-    }
-
-    public void setCurrentPointDurability(int currentPointDurability) {
-        this.currentPointDurability = currentPointDurability;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getCurrentEraserDurability() {
-        return currentEraserDurability;
-    }
-
-    public void setCurrentEraserDurability(int currentEraserDurability) {
-        this.currentEraserDurability = currentEraserDurability;
-    }
-}
