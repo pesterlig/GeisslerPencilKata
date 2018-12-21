@@ -5,6 +5,12 @@ public class Pencil {
     private int initialPointDurability;
     private int currentPointDurability;
 
+    public Pencil(int initialPointDurability) {
+        this.initialPointDurability = initialPointDurability;
+        this.currentPointDurability = initialPointDurability;
+    }
+
+    //overloaded constructor (mainly for ease of testing purposes)
     public Pencil(int initialPointDurability, int currentPointDurability) {
         this.initialPointDurability = initialPointDurability;
         this.currentPointDurability = currentPointDurability;
@@ -37,7 +43,6 @@ public class Pencil {
     }
 
     public int countUppercaseChars(String text) {
-
         int count = 0;
         for (int i = 0; i < text.length(); i++) {
 

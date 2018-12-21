@@ -2,6 +2,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
+/*
+Sprint Goals for Friday 12/21
+    0.) Merge git branches from Wed and Thurs and start a Friday branch
+    1.) Make test more general and assert multiple times within the same test for specific cases (per BL advice)
+    2.) Fix the write method in Pencil 2
+    3.) Extract the durability method that takes a ch arg from the setter and call it something else (per BL advice)
+    4.) Work on the erase method using reverse String and split String
+
+*/
 
 public class Pencil2Test {
     //testing the pencil2.write(){String text, Paper paper} which returns paper.getText()

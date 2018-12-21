@@ -17,7 +17,7 @@ public class PencilTest {
 
     @Before
     public void setUp() {
-        pencil = new Pencil(20, 20);
+        pencil = new Pencil(20);
         paper = new Paper();
     }
 
@@ -48,7 +48,7 @@ public class PencilTest {
     }
 
     @Test
-    public void whenDurabilityIs2orMre_thenPaperGetTextReturnsAnyOneCharacterExactly() {
+    public void whenDurabilityIs2orMore_thenPaperGetTextReturnsAnyOneCharacterExactly() {
         prepContextForWriteMethodTests("P", 20, 2);
         assertEquals("P", paper.getText());
     }
