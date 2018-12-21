@@ -1,12 +1,15 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 /*
 Sprint Goals for Friday 12/21
-    0.) Merge git branches from Wed and Thurs and start a Friday branch
-    1.) Make test more general and assert multiple times within the same test for specific cases (per BL advice)
-    2.) Fix the write method in Pencil 2
+    -0.5) Pomodoro - 25 min on, 5 min break (get a drink of water), 25 etc.  15 min break after 4 pomos (2hrs) then 4 again, then 1/2 hr or 1 hr break - food etc - then 4&4 pomos
+    0.) Merge git branches from Wed and Thurs and start a Friday branch - Done
+    1.) Make test more general and assert multiple times within the same test for specific cases (per BL advice) - Done-ish - came to a different understanding about this
+    2.) Fix the write method in Pencil2 - Done!
+    2.5) (Note: Remember the overloaded pencil constructor and make use as needed, remove currentEraserDurability as well) - Done
     3.) Extract the durability method that takes a ch arg from the setter and call it something else (per BL advice)
     4.) Work on the erase method using reverse String and split String
 
@@ -14,13 +17,23 @@ Sprint Goals for Friday 12/21
 
 public class Pencil2Test {
     //testing the pencil2.write(){String text, Paper paper} which returns paper.getText()
+    Paper paper;
+    Pencil2 pencil;
+
+    @Before
+
     @Test
-    public void whenTextArgIs4AndPointDurabilityIs3_thenPaperHas3CharAnd1Space() {
-        String testText = "Blah";
-        Pencil2 pencil = new Pencil2(50, 3, 10, 10, 10);
-        Paper paper = new Paper();
+    public void givenPointDurabilityLessThanInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
+        prepContextGivenPointDurabilityLessThanInputTextLength("Blah",50,10,20);
+        assertEquals("Blah", paper.getText());
+    }
+    //can't assert the same thing multiple times in the same test, but could assert different things to test multiple parts of a complex method?
+
+
+    private void prepContextGivenPointDurabilityLessThanInputTextLength(String testText, int initialPointDurability, int length, int initialEraserDurability){
+        pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
+        paper = new Paper();
         pencil.write(testText, paper);
-        assertEquals("Bla ", paper.getText());
     }
 
     //testing the Pencil2.sharpen() method that restores initialPointDurability and reduces length by one

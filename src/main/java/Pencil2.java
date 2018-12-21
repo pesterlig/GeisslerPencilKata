@@ -10,6 +10,16 @@ public class Pencil2 {
     private int initialEraserDurability;
     private int currentEraserDurability;
 
+    public Pencil2(int initialPointDurability, int length, int initialEraserDurability) {
+        this.initialPointDurability = initialPointDurability;
+        this.currentPointDurability = initialPointDurability;
+        this.length = length;
+        this.initialEraserDurability = initialEraserDurability;
+        this.currentEraserDurability = initialEraserDurability;
+    }
+
+    //(overloaded constructor, used mainly for testing purposes)
+
     public Pencil2(int initialPointDurability, int currentPointDurability, int length, int initialEraserDurability, int currentEraserDurability) {
         this.initialPointDurability = initialPointDurability;
         this.currentPointDurability = currentPointDurability;
@@ -19,21 +29,20 @@ public class Pencil2 {
     }
 
     public void write(String text, Paper paper) {
-        String content = paper.getText();
+
         String visibleText = "";
         for (int i = 0; i < text.length(); i++) {
             Character ch = text.charAt(i);
             if (currentPointDurability >= 1) {
-                visibleText = ch.toString();
+                visibleText += ch.toString();
                 currentPointDurability -= 1;
             } else {
-                visibleText = " ";
+                visibleText += " ";
             }
-            visibleText += visibleText;
-
         }
-        paper.setText(content+visibleText);
+        paper.setText(paper.getText() + visibleText);
     }
+
 
     public int erase(String text, Paper paper) {
 
@@ -52,7 +61,7 @@ public class Pencil2 {
             Arrays.fill(arrayOfReplacementBlankSpaces, ' ');
             String erasedText = new String(arrayOfReplacementBlankSpaces);
             StringBuilder stringBuilder = new StringBuilder(content);
-            stringBuilder.replace(beginningIndexForErasableText,text.length()+beginningIndexForErasableText,erasedText);
+            stringBuilder.replace(beginningIndexForErasableText, text.length() + beginningIndexForErasableText, erasedText);
             paper.setText(stringBuilder.toString());
             currentEraserDurability -= countErasableChars;
             setCurrentEraserDurability(currentEraserDurability);
