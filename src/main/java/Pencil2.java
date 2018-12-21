@@ -77,7 +77,8 @@ return strb.toString();
         String backwardsContent = reverse(paper.getText());
         //reverse the textToErase
         String backwardsTextToErase = reverse(textToErase);
-        //Get the count of chars to replace
+        //Replace the chars with blank spaces and count how many are replaced, reset eraser durability
+
 
 
        /* //replace the textToErase with blank spaces
@@ -85,65 +86,89 @@ return strb.toString();
 
 
 
-    }*/
+    */
 
     }
 
         public String createBlankTextOfLength (String text,int length){
             int count = 0;
             String blankText = "";
+            currentEraserDurability = getCurrentEraserDurability();
             for (int i = 0; i < length; i++) {
                 Character ch = text.charAt(i);
                 String stringCharacter = ch.toString();
                 String blankSpace = stringCharacter.replace(stringCharacter, " ");
                 blankText += blankSpace;
+                currentEraserDurability -=1;
                 count++;
             }
+
+            setCurrentEraserDurability(currentEraserDurability);
             return blankText;
         }
 
-        public String reverse (String text){
-            StringBuffer stringBufferContent = new StringBuffer(text);
-            stringBufferContent = stringBufferContent.reverse();
-            String reversed = stringBufferContent.toString();
-            return reversed;
+    //Below: test method to return count as int
+
+    /*public int createBlankTextOfLength(String text, int length) {
+        int count = 0;
+        String blankText = "";
+        currentEraserDurability = getCurrentEraserDurability();
+        for (int i = 0; i < length; i++) {
+            Character ch = text.charAt(i);
+            String stringCharacter = ch.toString();
+            String blankSpace = stringCharacter.replace(stringCharacter, " ");
+            blankText += blankSpace;
+            currentEraserDurability -= 1;
+            count++;
         }
 
+        setCurrentEraserDurability(currentEraserDurability);
+        return count;
+    }*/
 
-        public void sharpen () {
-            currentPointDurability = initialPointDurability;
-            setCurrentPointDurability(currentPointDurability);
-            length -= 1;
-            setLength(length);
-        }
 
-        public int getInitialPointDurability () {
-            return initialPointDurability;
-        }
-
-        public int getCurrentPointDurability () {
-            return currentPointDurability;
-        }
-
-        public void setCurrentPointDurability ( int currentPointDurability){
-            this.currentPointDurability = currentPointDurability;
-        }
-
-        public int getLength () {
-            return length;
-        }
-
-        public void setLength ( int length){
-            this.length = length;
-        }
-
-        public int getCurrentEraserDurability () {
-            return currentEraserDurability;
-        }
-
-        public void setCurrentEraserDurability ( int currentEraserDurability){
-            this.currentEraserDurability = currentEraserDurability;
-        }
+    public String reverse(String text) {
+        StringBuffer stringBufferContent = new StringBuffer(text);
+        stringBufferContent = stringBufferContent.reverse();
+        String reversed = stringBufferContent.toString();
+        return reversed;
     }
+
+
+    public void sharpen() {
+        currentPointDurability = initialPointDurability;
+        setCurrentPointDurability(currentPointDurability);
+        length -= 1;
+        setLength(length);
+    }
+
+    public int getInitialPointDurability() {
+        return initialPointDurability;
+    }
+
+    public int getCurrentPointDurability() {
+        return currentPointDurability;
+    }
+
+    public void setCurrentPointDurability(int currentPointDurability) {
+        this.currentPointDurability = currentPointDurability;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getCurrentEraserDurability() {
+        return currentEraserDurability;
+    }
+
+    public void setCurrentEraserDurability(int currentEraserDurability) {
+        this.currentEraserDurability = currentEraserDurability;
+    }
+}
 
 

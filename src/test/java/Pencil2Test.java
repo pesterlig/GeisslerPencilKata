@@ -72,18 +72,14 @@ public class Pencil2Test {
         pencil.createBlankTextOfLength(testText,testText.length());
         assertEquals("        ", pencil.createBlankTextOfLength(testText, testText.length()));
 
+    }
 
-        /*@Test
-        public void testSomeMethod() {
-            // Set up test data specific to this test.
-            Specific specific = new Specific(7);
-
-            // Perform method under test with test-specific and pre-initialized data.
-            Result result = objectUnderTest.someMethod(preInitialized, specific);
-
-            // Make assertions about the result.
-            assertThat(result.someProperty(), is(12));
-        }*/
+    @Test
+    public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLength() {
+        Pencil2 pencil = new Pencil2(100, 10, 20);
+        String testText = "War does";
+        pencil.createBlankTextOfLength(testText,testText.length());
+        assertEquals(12,pencil.getCurrentEraserDurability());
     }
 
     @Test
