@@ -9,7 +9,7 @@ public class PaperTest {
 
     @Before
     public void setUp() {
-        paper = new Paper();
+        paper = new Paper("");
     }
 
     @Test

@@ -78,15 +78,11 @@ return strb.toString();
         //reverse the textToErase
         String backwardsTextToErase = reverse(textToErase);
         //Replace the chars with blank spaces and count how many are replaced, reset eraser durability
-
-
-
-       /* //replace the textToErase with blank spaces
-        String contentWithErasedText = backwardsContent.replaceFirst(Pattern.quote(backwardsTextToErase),//replacement text go here)
-
-
-
-    */
+        String blankText = createBlankTextOfLength(backwardsTextToErase, backwardsTextToErase.length()); //will have to give this another length if durability<text.length
+       //replace text to erase in the content
+        String contentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase,blankText);
+        //set the paper text now for testing purposes
+        paper.setText(contentWithErasedText);
 
     }
 

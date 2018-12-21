@@ -37,7 +37,7 @@ public class Pencil2Test {
 
     private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability) {
         pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
-        paper = new Paper();
+        paper = new Paper("");
         pencil.write(testText, paper);
     }
 
@@ -69,7 +69,7 @@ public class Pencil2Test {
     public void givenTextStringInput_whenCreateBlankIsCalled_thenAStringOfSpacesOfTextLengthIsReturned() {
         Pencil2 pencil = new Pencil2(100, 10, 20);
         String testText = "War does";
-        pencil.createBlankTextOfLength(testText,testText.length());
+        pencil.createBlankTextOfLength(testText, testText.length());
         assertEquals("        ", pencil.createBlankTextOfLength(testText, testText.length()));
 
     }
@@ -78,55 +78,27 @@ public class Pencil2Test {
     public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLength() {
         Pencil2 pencil = new Pencil2(100, 10, 20);
         String testText = "War does";
-        pencil.createBlankTextOfLength(testText,testText.length());
-        assertEquals(12,pencil.getCurrentEraserDurability());
+        pencil.createBlankTextOfLength(testText, testText.length());
+        assertEquals(12, pencil.getCurrentEraserDurability());
     }
+
 
     @Test
-    public void givenTextToErase_whenPencilErases_thenPaperGetTextReplacesTheLastOccurenceOfTextWithBlankSpaces() {
-        prepContextForGivenTextToErase("War does not determine who's right-\nWar determines who's left", "who", 100, 10, 20);
-        assertEquals("War does not determine who's right-\nWar determines    's left", paper.getText());
-
-    }
-
-    private void prepContextForGivenTextToErase(String testText, String testTextToErase, int initialPointDurability,
-                                                int length, int initialEraserDurability) {
-        Pencil2 pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
-        Paper paper = new Paper();
-        pencil.write(testText, paper);
-        pencil.erase(testTextToErase, paper);
-    }
-    //Question: Can I assert things that variables within a method are equal to expected, or is it only the returns I can compare to?
-
-
-   /* @Test
-    public void givenEraseTextWhichIsASubstringOfPaperGetText_thenReturnAnIntegerValueForIndexOfTheFirstCharacterOfTheLastOccurance() {
+    public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces() {
         String testText = "OMG! Blah Blah";
         String testErasableText = "Blah";
         Pencil2 pencil = new Pencil2(50, 50, 10, 50, 50);
-        Paper paper = new Paper();
+        Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testErasableText, paper);
-        assertEquals(10, pencil.erase(testErasableText, ));
-    }*/
-
-    @Test
-    public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces
-            () {
-        String testText = "OMG! Blah Blah";
-        String testErasableText = "Blah";
-        Pencil2 pencil = new Pencil2(50, 50, 10, 50, 50);
-        Paper paper = new Paper();
-        pencil.write(testText, paper);
-        pencil.erase(testErasableText, paper);
-        assertEquals("OMG! Blah     ", paper.getText());
+        assertEquals("     halB !GMO", paper.getText());
     }
 
     @Test
     public void whenEraseTextArgIs4AndEraserDurabilityIs3_thenTheLast3CharsAreReplacedWithBlankSpacesOnPaper() {
         String testText = "Blah";
         Pencil2 pencil = new Pencil2(50, 50, 10, 10, 3);
-        Paper paper = new Paper();
+        Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testText, paper);
         assertEquals("B   ", paper.getText());

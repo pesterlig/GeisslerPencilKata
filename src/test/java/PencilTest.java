@@ -18,7 +18,7 @@ public class PencilTest {
     @Before
     public void setUp() {
         pencil = new Pencil(20);
-        paper = new Paper();
+        paper = new Paper("");
     }
 
     /*@Test
