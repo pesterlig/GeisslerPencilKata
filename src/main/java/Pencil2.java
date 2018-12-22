@@ -178,6 +178,8 @@ return strb.toString();
         setLength(length);
     }
 
+
+
     public int getInitialPointDurability() {
         return initialPointDurability;
     }

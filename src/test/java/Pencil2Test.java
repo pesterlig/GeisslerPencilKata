@@ -116,6 +116,19 @@ public class Pencil2Test {
         assertEquals("Optimist: She who doesn't understand the complexity of     Pencil Kata yet", paper.getText());
     }
 
+    @Test
+    public void givenEraserDurabilityGreaterThanTextToErase_whenEraseIsCalledTwice_thenLastTwoInstancesOfTextReplacedWithBlankSpaces() {
+        String testText = "War does not determine who's right-\nWar determines who's left";
+        String testTextToErase = "who";
+        Pencil2 pencil = new Pencil2(100, 10, 50);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.erase(testTextToErase,paper);
+
+        assertEquals("War does not determine    's right-\nWar determines    's left", paper.getText());
+    }
+
 
     @Test
     public void whenEraseTextArgIs4AndEraserDurabilityIs3_thenTheLast3CharsAreReplacedWithBlankSpacesOnPaper() {
