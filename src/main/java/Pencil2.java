@@ -79,29 +79,42 @@ return strb.toString();
         String backwardsTextToErase = reverse(textToErase);
         //Replace the chars with blank spaces and count how many are replaced, reset eraser durability
         String blankText = createBlankTextOfLength(backwardsTextToErase, backwardsTextToErase.length()); //will have to give this another length if durability<text.length
-       //replace text to erase in the content
-        String contentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase,blankText);
+        //replace text to erase in the content
+        String backwardsContentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase, blankText);
+        //reverse the backwardsContentWithErasedText
+        String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
         //set the paper text now for testing purposes
-        paper.setText(contentWithErasedText);
+        paper.setText(forwardsContentWithErasedText);
 
     }
 
-        public String createBlankTextOfLength (String text,int length){
-            int count = 0;
-            String blankText = "";
-            currentEraserDurability = getCurrentEraserDurability();
-            for (int i = 0; i < length; i++) {
-                Character ch = text.charAt(i);
-                String stringCharacter = ch.toString();
-                String blankSpace = stringCharacter.replace(stringCharacter, " ");
-                blankText += blankSpace;
-                currentEraserDurability -=1;
-                count++;
-            }
-
-            setCurrentEraserDurability(currentEraserDurability);
-            return blankText;
+    public int calculateLengthOfErasableText(String textToErase) {
+        int lengthOfErasableText = 0;
+        if (getCurrentEraserDurability() < textToErase.length()) {
+            lengthOfErasableText = currentEraserDurability;
+        } else {
+            lengthOfErasableText = textToErase.length();
         }
+
+        return lengthOfErasableText;
+    }
+
+    public String createBlankTextOfLength(String text, int lengthOfErasableText) {
+        int count = 0;
+        String blankText = "";
+        currentEraserDurability = getCurrentEraserDurability();
+        for (int i = 0; i < lengthOfErasableText; i++) {
+            Character ch = text.charAt(i);
+            String stringCharacter = ch.toString();
+            String blankSpace = stringCharacter.replace(stringCharacter, " ");
+            blankText += blankSpace;
+            currentEraserDurability -= 1;
+            count++;
+        }
+
+        setCurrentEraserDurability(currentEraserDurability);
+        return blankText;
+    }
 
     //Below: test method to return count as int
 

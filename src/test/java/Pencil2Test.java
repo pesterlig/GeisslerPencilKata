@@ -86,13 +86,26 @@ public class Pencil2Test {
     @Test
     public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces() {
         String testText = "OMG! Blah Blah";
-        String testErasableText = "Blah";
+        String testTextToErase = "Blah";
         Pencil2 pencil = new Pencil2(50, 50, 10, 50, 50);
         Paper paper = new Paper("");
         pencil.write(testText, paper);
-        pencil.erase(testErasableText, paper);
-        assertEquals("     halB !GMO", paper.getText());
+        pencil.erase(testTextToErase, paper);
+        assertEquals("OMG! Blah     ", paper.getText());
     }
+
+    @Test
+    public void givenEraserDurabilityLessThanTextToErase_whenCalculateLengthOfErasableTextIsCalled_thenIntEraserDurabilityIsReturned(){
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil2 pencil = new Pencil2(100,10,3);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.calculateLengthOfErasableText(testTextToErase);
+        assertEquals(pencil.getCurrentEraserDurability(),pencil.calculateLengthOfErasableText(testTextToErase));
+    }
+
+
 
     @Test
     public void whenEraseTextArgIs4AndEraserDurabilityIs3_thenTheLast3CharsAreReplacedWithBlankSpacesOnPaper() {
@@ -106,4 +119,5 @@ public class Pencil2Test {
 
     }
 }
+
 
