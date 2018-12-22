@@ -13,6 +13,13 @@ Sprint Goals for Friday 12/21
     3.) Extract the durability method that takes a ch arg from the setter and call it something else (per BL advice) - issue with Pencil, not Pencil2 - skipping for now, but will do correctly later
     4.) Work on the erase method using reverse String - Done..not quite werking :(
 
+    Sprint Goals for Saturday 12/22
+    1.) Version Control - merge & push Friday Branch, Start Saturday Branch - Done
+    1.5) Test that Erase works repeatedly to erase the last occurrence of textToErase - Done
+    2.) Get Erase to work for when currentEraserDurability is less than textToErase length - arrrgh
+    3.) Get currentEraserDurability to ignore Whitespace characters in TextToErase when calculating currentEraserDurability - Done in decent amount of time - yay!
+
+
 
 */
 
@@ -74,12 +81,20 @@ public class Pencil2Test {
 
     }
 
-    @Test
+   /* @Test
     public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLength() {
         Pencil2 pencil = new Pencil2(100, 10, 20);
         String testText = "War does";
         pencil.createBlankTextOfLength(testText, testText.length());
         assertEquals(12, pencil.getCurrentEraserDurability());
+    }*/
+
+    @Test
+    public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLengthNotIncludingWhitespaceCharacters() {
+        Pencil2 pencil = new Pencil2(100, 10, 20);
+        String testText = "War does";
+        pencil.createBlankTextOfLength(testText, testText.length());
+        assertEquals(13, pencil.getCurrentEraserDurability());
     }
 
 
@@ -124,7 +139,7 @@ public class Pencil2Test {
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
-        pencil.erase(testTextToErase,paper);
+        pencil.erase(testTextToErase, paper);
 
         assertEquals("War does not determine    's right-\nWar determines    's left", paper.getText());
     }

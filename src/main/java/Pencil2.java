@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Pencil2 {
@@ -123,8 +124,10 @@ return strb.toString();
 
     public String createBlankTextOfLength(String textToErase, int lengthOfErasableText) {
         int count = 0;
+        int whitespaceCount = countWhitespaceChars(textToErase);
         String blankText = "";
-        currentEraserDurability = getCurrentEraserDurability();
+        currentEraserDurability = getCurrentEraserDurability() + whitespaceCount;
+
        /*
             textToErase = textToErase.substring(startIndex);
         }
@@ -141,6 +144,16 @@ return strb.toString();
 
         setCurrentEraserDurability(currentEraserDurability);
         return blankText;
+    }
+
+    public int countWhitespaceChars(String text) {
+        Pattern pattern = Pattern.compile("\\s");
+        Matcher matcher = pattern.matcher(text);
+        int whitespaceCount = 0;
+        while (matcher.find()) {
+            whitespaceCount++;
+        }
+        return whitespaceCount;
     }
 
     //Below: test method to return count as int
@@ -177,7 +190,6 @@ return strb.toString();
         length -= 1;
         setLength(length);
     }
-
 
 
     public int getInitialPointDurability() {
