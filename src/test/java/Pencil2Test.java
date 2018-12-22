@@ -11,7 +11,8 @@ Sprint Goals for Friday 12/21
     2.) Fix the write method in Pencil2 - Done!
     2.5) (Note: Remember the overloaded pencil constructor and make use as needed, remove currentEraserDurability as well) - Done
     3.) Extract the durability method that takes a ch arg from the setter and call it something else (per BL advice) - issue with Pencil, not Pencil2 - skipping for now, but will do correctly later
-    4.) Work on the erase method using reverse String and split String - at end of 4th pomodoro...working on it - taking 1/2hr break
+    4.) Work on the erase method using reverse String - Done..not quite werking :(
+
 
 */
 
@@ -32,7 +33,6 @@ public class Pencil2Test {
         prepContextForWhenPencilWrites("War does not determine who's right-\nWar determines who's left", 100, 10, 20);
         assertEquals("War does not determine who's right-\nWar determines who's left", paper.getText());
     }
-    //can't assert the same thing multiple times in the same test, but could assert different things to test multiple parts of a complex method?
 
 
     private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability) {
@@ -95,28 +95,37 @@ public class Pencil2Test {
     }
 
     @Test
-    public void givenEraserDurabilityLessThanTextToErase_whenCalculateLengthOfErasableTextIsCalled_thenIntEraserDurabilityIsReturned(){
+    public void givenEraserDurabilityLessThanTextToErase_whenCalculateLengthOfErasableTextIsCalled_thenIntEraserDurabilityIsReturned() {
         String testText = "OMG! Blah Blah";
         String testTextToErase = "Blah";
-        Pencil2 pencil = new Pencil2(100,10,3);
+        Pencil2 pencil = new Pencil2(100, 10, 3);
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.calculateLengthOfErasableText(testTextToErase);
-        assertEquals(pencil.getCurrentEraserDurability(),pencil.calculateLengthOfErasableText(testTextToErase));
+        assertEquals(pencil.getCurrentEraserDurability(), pencil.calculateLengthOfErasableText(testTextToErase));
     }
 
+    @Test
+    public void givenEraserDurabilityGreaterThanTextToErase_whenEraseIsCalled_thenLastInstanceOfTextReplacedWithBlankSpaces() {
+        String testText = "Optimist: She who doesn't understand the complexity of the Pencil Kata yet";
+        String testTextToErase = "the";
+        Pencil2 pencil = new Pencil2(100, 10, 50);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        assertEquals("Optimist: She who doesn't understand the complexity of     Pencil Kata yet", paper.getText());
+    }
 
 
     @Test
     public void whenEraseTextArgIs4AndEraserDurabilityIs3_thenTheLast3CharsAreReplacedWithBlankSpacesOnPaper() {
-        String testText = "Blah";
-        Pencil2 pencil = new Pencil2(50, 50, 10, 10, 3);
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil2 pencil = new Pencil2(100, 10, 3);
         Paper paper = new Paper("");
         pencil.write(testText, paper);
-        pencil.erase(testText, paper);
-        assertEquals("B   ", paper.getText());
-
-
+        pencil.erase(testTextToErase, paper);
+        assertEquals("-1", paper.getText());
     }
 }
 

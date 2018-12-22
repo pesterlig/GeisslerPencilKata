@@ -73,18 +73,40 @@ return strb.toString();
     }*/
 
     public void erase(String textToErase, Paper paper) {
-        //reverse the contents of the text on the paper
-        String backwardsContent = reverse(paper.getText());
-        //reverse the textToErase
-        String backwardsTextToErase = reverse(textToErase);
-        //Replace the chars with blank spaces and count how many are replaced, reset eraser durability
-        String blankText = createBlankTextOfLength(backwardsTextToErase, backwardsTextToErase.length()); //will have to give this another length if durability<text.length
-        //replace text to erase in the content
-        String backwardsContentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase, blankText);
-        //reverse the backwardsContentWithErasedText
-        String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
-        //set the paper text now for testing purposes
-        paper.setText(forwardsContentWithErasedText);
+        boolean concatenationNeeded = false;
+        if (textToErase.length() > getCurrentEraserDurability()) {
+            erasePartial(textToErase, paper);
+        } else {
+            //reverse the contents of the text on the paper
+            String backwardsContent = reverse(paper.getText());
+            //reverse the textToErase
+            String backwardsTextToErase = reverse(textToErase);
+            //calculate how much text to replace based on current Eraser Durability
+            int lengthOfErasableText = calculateLengthOfErasableText(backwardsTextToErase);
+            //Replace the chars with blank spaces and count how many are replaced, reset eraser durability
+            String blankText = createBlankTextOfLength(backwardsTextToErase, lengthOfErasableText); //will have to give this another length if durability<text.length
+
+            //if eraser durability < textToErase.length, must somehow split up the replaced text and the text to Erase, calculate a substring of remaining characters, and append them to the blanktext
+            //replace text to erase in the content
+            String backwardsContentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase, blankText);
+
+            //reverse the backwardsContentWithErasedText
+            String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
+            //set the paper text now for testing purposes
+            paper.setText(forwardsContentWithErasedText);
+        }
+
+    }
+
+    public void erasePartial(String textToErase, Paper paper) {
+        paper.setText("-1");
+        /*String replacementOfBackwardsTextToErase = "";
+        if (concatenationNeeded) {
+            String remainderOfBackwardsTextToErase = backwardsTextToErase.substring(((backwardsTextToErase.length() - lengthOfErasableText) - 1));
+            replacementOfBackwardsTextToErase = blankText + remainderOfBackwardsTextToErase;
+        } else {
+            replacementOfBackwardsTextToErase = blankText;
+        }*/
 
     }
 
@@ -99,12 +121,17 @@ return strb.toString();
         return lengthOfErasableText;
     }
 
-    public String createBlankTextOfLength(String text, int lengthOfErasableText) {
+    public String createBlankTextOfLength(String textToErase, int lengthOfErasableText) {
         int count = 0;
         String blankText = "";
         currentEraserDurability = getCurrentEraserDurability();
+       /*
+            textToErase = textToErase.substring(startIndex);
+        }
+        else {textToErase = textToErase;}*/
+
         for (int i = 0; i < lengthOfErasableText; i++) {
-            Character ch = text.charAt(i);
+            Character ch = textToErase.charAt(i);
             String stringCharacter = ch.toString();
             String blankSpace = stringCharacter.replace(stringCharacter, " ");
             blankText += blankSpace;
