@@ -99,8 +99,19 @@ return strb.toString();
 
     }
 
+    /*
+    Ideas - 1.) When erasing ALL the instances of the textToErase, have conditional - if find text, run erase method again
+    2.) How to deal with partial erasing...
+        a. If text is longer than durability, have to create a new word to put in place of the text which is a combo of some text & some blanks
+
+    */
+
     public void erasePartial(String textToErase, Paper paper) {
-        paper.setText("-1");
+
+        //create a substring which is the end of the backwards textToErase that is unchanged
+        String unchangedTextSubstring = textToErase.substring(currentEraserDurability, textToErase.length());
+        //create an array of blank spaces of the same length as currentEraserDurability
+
         /*String replacementOfBackwardsTextToErase = "";
         if (concatenationNeeded) {
             String remainderOfBackwardsTextToErase = backwardsTextToErase.substring(((backwardsTextToErase.length() - lengthOfErasableText) - 1));
@@ -126,7 +137,7 @@ return strb.toString();
         int count = 0;
         int whitespaceCount = countWhitespaceChars(textToErase);
         String blankText = "";
-        currentEraserDurability = getCurrentEraserDurability() + whitespaceCount;
+        currentEraserDurability = getCurrentEraserDurability();
 
        /*
             textToErase = textToErase.substring(startIndex);
@@ -141,6 +152,7 @@ return strb.toString();
             currentEraserDurability -= 1;
             count++;
         }
+        currentEraserDurability += whitespaceCount;
 
         setCurrentEraserDurability(currentEraserDurability);
         return blankText;
