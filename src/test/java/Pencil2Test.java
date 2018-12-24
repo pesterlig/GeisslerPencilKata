@@ -19,6 +19,10 @@ Sprint Goals for Friday 12/21
     2.) Get Erase to work for when currentEraserDurability is less than textToErase length - arrrgh
     3.) Get currentEraserDurability to ignore Whitespace characters in TextToErase when calculating currentEraserDurability - Done in decent amount of time - yay!
 
+   Sprint Goals for Christmas Eve Eve 12/23
+   1.) Version Control - merge, push, start new branch
+   2.) Work a bit on the eraser durability less than textToErase
+
 
 
 */
