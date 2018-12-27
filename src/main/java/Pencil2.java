@@ -74,9 +74,6 @@ return strb.toString();
     }*/
 
     public void erase(String textToErase, Paper paper) {
-        //boolean concatenationNeeded = false;
-
-
         //calculate how much text to replace based on current Eraser Durability
         if (textToErase.length() > getCurrentEraserDurability()) {
             erasePartial(textToErase, paper);
@@ -86,31 +83,20 @@ return strb.toString();
             String backwardsContent = reverse(paper.getText());
             //reverse the textToErase
             String backwardsTextToErase = reverse(textToErase);
+
             int lengthOfErasableText = calculateLengthOfErasableText(backwardsTextToErase);
             //Replace the chars with blank spaces and count how many are replaced, reset eraser durability
-            String blankText = createBlankTextOfLength(backwardsTextToErase, lengthOfErasableText); //will have to give this another length if durability<text.length
-
-            //if eraser durability < textToErase.length, must somehow split up the replaced text and the text to Erase, calculate a substring of remaining characters, and append them to the blanktext
-
+            String blankText = createBlankTextOfLength(backwardsTextToErase, lengthOfErasableText);
             //replace text to erase in the content
             String backwardsContentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase, blankText);
-
 
             //reverse the backwardsContentWithErasedText
             String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
             //set the paper text now for testing purposes
             paper.setText(forwardsContentWithErasedText);
         }
-
-
     }
 
-    /*
-    Ideas - 1.) When erasing ALL the instances of the textToErase, have conditional - if find text, run erase method again - no - this is not needed
-    2.) How to deal with partial erasing...
-        a. If text is longer than durability, have to create a new word to put in place of the text which is a combo of some text & some blanks
-
-    */
 
     public void erasePartial(String textToErase, Paper paper) {
         //reverse the contents of the text on the paper
@@ -133,14 +119,17 @@ return strb.toString();
         //replace text to erase in the content
         String backwardsContentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase, partialBlankText);
 
-
         //reverse the backwardsContentWithErasedText
         String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
         //set the paper text now for testing purposes
         paper.setText(forwardsContentWithErasedText);
 
-
+        //reset currentEraserDurability to 0
+        getCurrentEraserDurability();
+        currentEraserDurability = 0;
+        setCurrentEraserDurability(0);
     }
+
 
     public int calculateLengthOfErasableText(String textToErase) {
         int lengthOfErasableText = 0;
@@ -159,10 +148,6 @@ return strb.toString();
         String blankText = "";
         currentEraserDurability = getCurrentEraserDurability();
 
-       /*
-            textToErase = textToErase.substring(startIndex);
-        }
-        else {textToErase = textToErase;}*/
 
         for (int i = 0; i < lengthOfErasableText; i++) {
             Character ch = textToErase.charAt(i);

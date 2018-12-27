@@ -27,7 +27,8 @@ Sprint Goals for Friday 12/21
 
    Sprint Goals for Thursday 12/27
    1.)  New Branch - done
-   2.) Get back in - eraser durability less than textToErase - Done!!!! Yay!
+   2.) Get back in - eraser durability less than textToErase - Done!!!! Yay! - note: upon reviewing the code, it seems that
+   the erase method will not reset currentEraserDurability to 0 is if it is less than textToErase.length - make a test and fix this
    3.) Make the write method ignore blanks, count capitals, etc.
    4.) Refactor the erase method to remove duplications
    5.) Get started on the Edit method if possible
@@ -148,13 +149,13 @@ public class Pencil2Test {
     public void givenEraserDurabilityGreaterThanTextToErase_whenEraseIsCalledTwice_thenLastTwoInstancesOfTextReplacedWithBlankSpaces() {
         String testText = "War does not determine who's right-\nWar determines who's left";
         String testTextToErase = "who";
-        Pencil2 pencil = new Pencil2(100, 10, 5);
+        Pencil2 pencil = new Pencil2(100, 10, 50);
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
         pencil.erase(testTextToErase, paper);
 
-        assertEquals("War does not determine w  's right-\nWar determines    's left", paper.getText());
+        assertEquals("War does not determine    's right-\nWar determines    's left", paper.getText());
     }
 
     @Test
@@ -168,6 +169,20 @@ public class Pencil2Test {
         pencil.erase(testTextToErase, paper);
 
         assertEquals("War does not determine w  's right-\nWar determines    's left", paper.getText());
+    }
+
+    @Test
+    public void givenEraserDurabilityEqualTo1andHalfOfText_whenEraseCalledThrice_then1stInstanceErased2ndPartiallyErased3rdNotErased() {
+        String testText = "How much wood could a wood chuck chuck,\nif a wood chuck could chuck wood?";
+        String testTextToErase = "chuck";
+        Pencil2 pencil = new Pencil2(100, 10, 7);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.erase(testTextToErase, paper);
+
+        assertEquals("How much wood could a wood chuck chuck,\nif a wood chu   could       wood?", paper.getText());
     }
 
 
