@@ -28,9 +28,9 @@ Sprint Goals for Friday 12/21
    Sprint Goals for Thursday 12/27
    1.)  New Branch - done
    2.) Get back in - eraser durability less than textToErase - Done!!!! Yay! - note: upon reviewing the code, it seems that
-   the erase method will not reset currentEraserDurability to 0 is if it is less than textToErase.length - make a test and fix this
-   3.) Make the write method ignore blanks, count capitals, etc.
-   4.) Refactor the erase method to remove duplications
+   the erase method will not reset currentEraserDurability to 0 is if it is less than textToErase.length - make a test and fix this - fixed
+   3.) Make the write method ignore blanks, count capitals, etc. - done!
+   4.) Refactor the erase method to remove duplications - not yet
    5.) Get started on the Edit method if possible
 
 
