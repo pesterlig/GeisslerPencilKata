@@ -77,7 +77,6 @@ return strb.toString();
         //boolean concatenationNeeded = false;
 
 
-
         //calculate how much text to replace based on current Eraser Durability
         if (textToErase.length() > getCurrentEraserDurability()) {
             erasePartial(textToErase, paper);
@@ -117,11 +116,20 @@ return strb.toString();
         //reverse the contents of the text on the paper
         String backwardsContent = reverse(paper.getText());
         //reverse the textToErase
-        String backwardsTextToErase = reverse(textToErase);//create a substring which is the end of the backwards textToErase that is unchanged
+        String backwardsTextToErase = reverse(textToErase);
 
+        //create a substring which is the end of the backwards textToErase that is unchanged
         String unchangedReversedTextSubstring = backwardsTextToErase.substring(currentEraserDurability, textToErase.length());
 
         //create an array of blank spaces of the same length as currentEraserDurability
+        char[] blanksArray = new char[currentEraserDurability];
+        //fill array with blank chars
+        Arrays.fill(blanksArray, ' ');
+        //convert array to a string
+        String blanksToSubForPartialText = new String(blanksArray);
+        //create a string of blanksToSubForPartialTest + unchangedReversedTextSubstring called partialBlankText
+        String partialBlankText = blanksToSubForPartialText.concat(unchangedReversedTextSubstring);
+
 
         /*String replacementOfBackwardsTextToErase = "";
         if (concatenationNeeded) {
@@ -131,7 +139,7 @@ return strb.toString();
             replacementOfBackwardsTextToErase = blankText;
         }*/
 
-        paper.setText(unchangedReversedTextSubstring);
+        paper.setText(partialBlankText);
 
 
         //return unchangedReversedTextSubstring; //if textToErase = "Blah, Durability = 3, should return "B" - write test to check
