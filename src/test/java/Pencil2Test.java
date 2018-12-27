@@ -44,15 +44,21 @@ public class Pencil2Test {
 
 
     @Test
-    public void givenPointDurabilityGreaterThanInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
+    public void givenPointDurabilityGreaterThanInputTextLength_whenPencilWrites_thenPaperHasSameText() {
         prepContextForWhenPencilWrites("Blah", 50, 10, 20);
         assertEquals("Blah", paper.getText());
     }
 
     @Test
-    public void givenPointDurabilityGreaterThanLongInputTextLength_whenPencilWrites_thenPaperTextLengthEqualsPointDurability() {
+    public void givenPointDurabilityGreaterThanLongInputTextLength_whenPencilWrites_thenPaperHasSameText() {
         prepContextForWhenPencilWrites("War does not determine who's right-\nWar determines who's left", 100, 10, 20);
         assertEquals("War does not determine who's right-\nWar determines who's left", paper.getText());
+    }
+
+    @Test
+    public void givenInputTextWithWhitespaceChars_whenWriteIsCalled_thenCurrentPointDurabilityIsNotDecreasedForWhitespaceChars() {
+        prepContextForWhenPencilWrites("If a Woodchuck could chuck wood?", 100, 10, 20);
+        assertEquals(73, pencil.getCurrentPointDurability());
     }
 
 

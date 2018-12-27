@@ -31,47 +31,27 @@ public class Pencil2 {
 
     public void write(String text, Paper paper) {
 
-        String visibleText = "";
+        String visibleSingleCharacter = "";
         for (int i = 0; i < text.length(); i++) {
             Character ch = text.charAt(i);
             if (currentPointDurability >= 1) {
-                visibleText += ch.toString();
+                visibleSingleCharacter = ch.toString();
                 currentPointDurability -= 1;
+                //Check for Whitespace Chars
+                Pattern pattern = Pattern.compile("\\s");
+                Matcher matcher = pattern.matcher(visibleSingleCharacter);
+                if (matcher.find()) {
+                    getCurrentPointDurability();
+                    currentPointDurability += 1;
+                    setCurrentPointDurability(currentPointDurability);
+                }
             } else {
-                visibleText += " ";
+                visibleSingleCharacter += " ";
             }
         }
-        paper.setText(paper.getText() + visibleText);
+        paper.setText(paper.getText() + visibleSingleCharacter);
     }
 
-
-    /*public int erase(String text, Paper paper) {
-        int beginningIndexForErasableText = paper.getText().lastIndexOf(text);
-        //char[] contentArray = content.toCharArray();
-        int countErasableChars = 0;
-        if (text.length() > currentEraserDurability) {
-            countErasableChars = currentEraserDurability;
-            char arrayOfReplacementBlankSpaces[] = new char[currentEraserDurability];
-        } else {
-            countErasableChars = text.length();
-            char arrayOfReplacementBlankSpaces[] = new char[countErasableChars];
-            Arrays.fill(arrayOfReplacementBlankSpaces, ' ');
-            String erasedText = new String(arrayOfReplacementBlankSpaces);
-            StringBuilder stringBuilder = new StringBuilder(content);
-            stringBuilder.replace(beginningIndexForErasableText, text.length() + beginningIndexForErasableText, erasedText);
-            paper.setText(stringBuilder.toString());
-            currentEraserDurability -= countErasableChars;
-            setCurrentEraserDurability(currentEraserDurability);
-            *//*myWord is the original word sayAABDCAADEF. sourceWord is what you want to replace,
-            say AA targetWord is what you want to replace it with say BB.
-StringBuilder strb=new StringBuilder(myWord);
-int index=strb.lastIndexOf(sourceWord);
-strb.replace(index,sourceWord.length()+index,targetWord);
-return strb.toString();
-            *//*
-        }
-        return beginningIndexForErasableText;
-    }*/
 
     public void erase(String textToErase, Paper paper) {
         //calculate how much text to replace based on current Eraser Durability
@@ -172,6 +152,18 @@ return strb.toString();
         }
         return whitespaceCount;
     }
+
+    /*public int adjustCurrentPointDurabilityForWhitespaceCharacters(String visibleText){
+        getCurrentPointDurability();
+        Pattern pattern = Pattern.compile("\\s");
+        Matcher matcher = pattern.matcher(visibleText);
+
+        while (matcher.find()) {
+            currentPointDurability = currentPointDurability;
+        }
+        return currentPointDurability;
+    }*/
+
 
     //Below: test method to return count as int
 
