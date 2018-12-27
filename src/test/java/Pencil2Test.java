@@ -20,8 +20,14 @@ Sprint Goals for Friday 12/21
     3.) Get currentEraserDurability to ignore Whitespace characters in TextToErase when calculating currentEraserDurability - Done in decent amount of time - yay!
 
    Sprint Goals for Christmas Eve Eve 12/23
-   1.) Version Control - merge, push, start new branch
-   2.) Work a bit on the eraser durability less than textToErase
+   1.) Version Control - merge, push, start new branch - done
+   2.) Work a bit on the eraser durability less than textToErase - no time - family stuff
+
+   Happy Christmas Break - Yay :)
+
+   Sprint Goals for Thursday 12/27
+   1.)  New Branch - done
+   2.) Get back in - eraser durability less than textToErase
 
 
 
@@ -158,6 +164,17 @@ public class Pencil2Test {
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
         assertEquals("-1", paper.getText());
+    }
+
+    @Test
+    public void whenEraseTextArgIsBlahAndEraserDurabilityIs3_thenEraseReturnsB() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil2 pencil = new Pencil2(100, 10, 3);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        assertEquals("B", paper.getText());
     }
 }
 
