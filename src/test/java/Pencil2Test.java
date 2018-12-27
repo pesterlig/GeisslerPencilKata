@@ -57,8 +57,14 @@ public class Pencil2Test {
 
     @Test
     public void givenInputTextWithWhitespaceChars_whenWriteIsCalled_thenCurrentPointDurabilityIsNotDecreasedForWhitespaceChars() {
-        prepContextForWhenPencilWrites("If a Woodchuck could chuck wood?", 100, 10, 20);
+        prepContextForWhenPencilWrites("if a woodchuck could chuck wood?", 100, 10, 20);
         assertEquals(73, pencil.getCurrentPointDurability());
+    }
+
+    @Test
+    public void givenInputTextWithUppercaseChars_whenWriteIsCalled_thenCurrentPointDurabilityIsDecreasedOneExtraForUppercaseChars() {
+        prepContextForWhenPencilWrites("If a Woodchuck could chuck wood?", 100, 10, 20);
+        assertEquals(71, pencil.getCurrentPointDurability());
     }
 
 

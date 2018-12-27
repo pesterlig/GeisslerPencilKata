@@ -31,25 +31,30 @@ public class Pencil2 {
 
     public void write(String text, Paper paper) {
 
-        String visibleSingleCharacter = "";
+        String visibleText = "";
         for (int i = 0; i < text.length(); i++) {
             Character ch = text.charAt(i);
             if (currentPointDurability >= 1) {
-                visibleSingleCharacter = ch.toString();
+                if (Character.isUpperCase(ch)) {
+                    currentPointDurability -= 1;
+                }
+                visibleText += ch.toString();
                 currentPointDurability -= 1;
+
                 //Check for Whitespace Chars
                 Pattern pattern = Pattern.compile("\\s");
-                Matcher matcher = pattern.matcher(visibleSingleCharacter);
+                Matcher matcher = pattern.matcher(ch.toString());
                 if (matcher.find()) {
                     getCurrentPointDurability();
                     currentPointDurability += 1;
                     setCurrentPointDurability(currentPointDurability);
                 }
+
             } else {
-                visibleSingleCharacter += " ";
+                visibleText += " ";
             }
         }
-        paper.setText(paper.getText() + visibleSingleCharacter);
+        paper.setText(paper.getText() + visibleText);
     }
 
 
