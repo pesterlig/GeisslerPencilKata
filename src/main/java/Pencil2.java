@@ -130,19 +130,14 @@ return strb.toString();
         //create a string of blanksToSubForPartialTest + unchangedReversedTextSubstring called partialBlankText
         String partialBlankText = blanksToSubForPartialText.concat(unchangedReversedTextSubstring);
 
-
-        /*String replacementOfBackwardsTextToErase = "";
-        if (concatenationNeeded) {
-            String remainderOfBackwardsTextToErase = backwardsTextToErase.substring(((backwardsTextToErase.length() - lengthOfErasableText) - 1));
-            replacementOfBackwardsTextToErase = blankText + remainderOfBackwardsTextToErase;
-        } else {
-            replacementOfBackwardsTextToErase = blankText;
-        }*/
-
-        paper.setText(partialBlankText);
+        //replace text to erase in the content
+        String backwardsContentWithErasedText = backwardsContent.replaceFirst(backwardsTextToErase, partialBlankText);
 
 
-        //return unchangedReversedTextSubstring; //if textToErase = "Blah, Durability = 3, should return "B" - write test to check
+        //reverse the backwardsContentWithErasedText
+        String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
+        //set the paper text now for testing purposes
+        paper.setText(forwardsContentWithErasedText);
 
 
     }

@@ -155,7 +155,7 @@ public class Pencil2Test {
     }
 
 
-    /*@Test
+    @Test
     public void whenEraseTextArgIs4AndEraserDurabilityIs3_thenTheLast3CharsAreReplacedWithBlankSpacesOnPaper() {
         String testText = "OMG! Blah Blah";
         String testTextToErase = "Blah";
@@ -163,19 +163,9 @@ public class Pencil2Test {
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
-        assertEquals("-1", paper.getText());
-    }*/
+        assertEquals("OMG! Blah B   ", paper.getText());
+    }
 
-    /*@Test
-    public void whenEraseTextArgIsBlahAndEraserDurabilityIs3_thenEraseReturnsB() {
-        String testText = "OMG! Blah Blah";
-        String testTextToErase = "Blah";
-        Pencil2 pencil = new Pencil2(100, 10, 3);
-        Paper paper = new Paper("");
-        pencil.write(testText, paper);
-        pencil.erase(testTextToErase, paper);
-        assertEquals("B", paper.getText());
-    }*/
 
     @Test
     public void whenEraseTextArgIsBlahAndEraserDurabilityIs3_thenEraseReturnsBlanksPlusB() {
@@ -188,16 +178,7 @@ public class Pencil2Test {
         assertEquals("   B", paper.getText());
     }
 
-    /*@Test
-    public void whenEraseTextArgIsBlahAndEraserDurabilityIs3_thenEraseReturnsStringOf3Blanks() {
-        String testText = "OMG! Blah Blah";
-        String testTextToErase = "Blah";
-        Pencil2 pencil = new Pencil2(100, 10, 3);
-        Paper paper = new Paper("");
-        pencil.write(testText, paper);
-        pencil.erase(testTextToErase, paper);
-        assertEquals("   ", paper.getText());
-    }*/
+
 }
 
 
