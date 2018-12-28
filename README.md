@@ -1,59 +1,56 @@
 Pencil Durability Kata for Pillar Technology 
-This program simulates a pencil in java.  It has a simple console UI.  
+This program models a traditional wooden pencil 
+with write, sharpen, erase and edit functions.  It has no UI at present 
+and exists as an apprentice exercise on Test Driven Development.
 
 Getting Started
-See deployment for notes on how to deploy the project on a live system.
+To build this project, clone it from Github
+with the following configuration:
+JDK 10
+Gradle 4.10
+
 
 Prerequisites
-Intellij or Similar IDE, latest Gradle Install, Java 10 & JDK
+Intellij or Similar IDE, Gradle version 4.10, Java 10 & JDK 10
 
-Give examples
-Installing
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-Give the example
-And repeat
-
-until finished
-End with an example of getting some data out of the system or using it for a little demo
 
 Running the tests
-Explain how to run the automated tests for this system
+Tests are runnable from the command line.  
+There are two files of junit tests: PaperTest and Pencil2Test.
+Pencil2Contains the majority of the test code. 
 
-Break down into end to end tests
-Explain what these tests test and why
+The paper methods were tested first - paper has text and methods 
+to get and set text.
+Pencil methods were tested second, starting with write methods, then sharpen,
+then erase, then edit
 
-Give an example
-And coding style tests
-Explain what these tests test and why
+Coding style is standard
 
-Give an example
-Deployment
-Add additional notes about how to deploy this on a live system
+
 
 Built With
-Dropwizard - The web framework used
-Maven - Dependency Management
-ROME - Used to generate RSS Feeds
-Contributing
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+Java SDK
+Gradle 4.10 - Dependency Management & project build
 
 Versioning
-We use SemVer for versioning. For the versions available, see the tags on this repository.
+intellij VCS and GitHub for versioning. 
 
-Authors
-Billie Thompson - Initial work - PurpleBooth
-See also the list of contributors who participated in this project.
+Author
+Leslie Geissler
 
-License
-This project is licensed under the MIT License - see the LICENSE.md file for details
 
 Acknowledgments
-Hat tip to anyone whose code was used
+Thanks to Baeldung, Oracle and the good folks at who contribute to Stack
+Overflow for explaining things to beginners.
+Extra Thanks to my mentor, Bruce Lindman Jr. at Careworks Tech for advice 
+and tutoring.
+
 Inspiration
-etcPencil Durability Kata
+Kata provided by Jed Duffey and James Kirkbride of Pillar Techology
+
+The text for the problem posed by the Kata is included below:
+
+Pencil Durability Kata
 The purpose of the Pencil Durability Kata is to write code to simulate, first coarsely and then more faithfully, an ordinary graphite pencil. It includes writing and editing text, point degradation, using the eraser, and sharpening the pencil. The point of this kata is to provide a larger-than-trivial exercise that can be used to practice TDD. A significant portion of the effort will be in determining which tests should be written and, more importantly, written next.
 
 Write

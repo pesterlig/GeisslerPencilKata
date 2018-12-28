@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,11 +57,10 @@ public class Pencil2 {
     }
 
 
-    public int erase(String textToErase, Paper paper) {
-        int indexOfErasedText = paper.getText().indexOf(textToErase); // calculate & return for edit method
+    public void erase(String textToErase, Paper paper) {
         //calculate how much text to replace based on current Eraser Durability
         if (textToErase.length() > getCurrentEraserDurability()) {
-            erasePartial(indexOfErasedText, textToErase, paper);
+            erasePartial(textToErase, paper);
 
         } else {
 
@@ -82,11 +80,11 @@ public class Pencil2 {
             //set the paper text now for testing purposes
             paper.setText(forwardsContentWithErasedText);
         }
-        return indexOfErasedText;
+
     }
 
 
-    public int erasePartial(int indexOfErasedText, String textToErase, Paper paper) {
+    public void erasePartial(String textToErase, Paper paper) {
         //reverse the contents of the text on the paper
         String backwardsContent = reverse(paper.getText());
         //reverse the textToErase
@@ -111,25 +109,58 @@ public class Pencil2 {
         String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
         //set the paper text now for testing purposes
         paper.setText(forwardsContentWithErasedText);
-        indexOfErasedText += (textToErase.length() - currentEraserDurability);
+
 
         //reset currentEraserDurability to 0
         getCurrentEraserDurability();
         currentEraserDurability = 0;
         setCurrentEraserDurability(0);
 
-        return indexOfErasedText;
+
+    }
+
+    public int findIndexOfLastOccurrenceOfErasableText(String textToErase, Paper paper) {
+        int currentPointDurability = getCurrentPointDurability();
+        int indexOfErasableText = 0;
+
+        if (currentPointDurability < textToErase.length()) {
+            indexOfErasableText = paper.getText().lastIndexOf(textToErase);
+            indexOfErasableText += (textToErase.length() - currentPointDurability);
+
+        } else {
+            indexOfErasableText = paper.getText().lastIndexOf(textToErase);
+        }
+
+        return indexOfErasableText;
     }
 
     public void edit(String textToErase, String replacementTextInEdit, Paper paper) {
-        int indexOfErasableText = erase(textToErase, paper); // this is yucky - make a new method to get this index
+        int indexOfErasableText = findIndexOfLastOccurrenceOfErasableText(textToErase, paper);
+
         int lengthOfErasableText = calculateLengthOfErasableText(textToErase);
-        String textBeforeErasable = paper.getText().substring(0,(indexOfErasableText-1));
+        String replacedText = "";
+        String textBeforeErasable = paper.getText().substring(0, (indexOfErasableText - 1));
         //String textAfterErasable = paper.getText().substring(indexOfErasableText+lengthOfErasableText);
-        String textToBeReplaced = paper.getText().substring(indexOfErasableText,(indexOfErasableText+replacementTextInEdit.length()-1));
-        String textAfterTextToBeReplaced = paper.getText().substring(indexOfErasableText+replacementTextInEdit.length());
+        String textToBeReplaced = paper.getText().substring(indexOfErasableText, (indexOfErasableText + replacementTextInEdit.length() - 1));
+        String textAfterTextToBeReplaced = paper.getText().substring(indexOfErasableText + replacementTextInEdit.length());
+        for (int i = 0; i < replacementTextInEdit.length(); i++) {
+            Pattern pattern = Pattern.compile("\\S");
+            Matcher matcher = pattern.matcher(textToBeReplaced.substring(i, i));
 
+            String stringOfLengthOneToBeReplaced = textToBeReplaced.substring(i, i);
+            if (matcher.find()) {
+                stringOfLengthOneToBeReplaced = "@";
+            } else {
 
+                stringOfLengthOneToBeReplaced = replacementTextInEdit.substring(i, i);
+            }
+            replacedText += stringOfLengthOneToBeReplaced;
+        }
+
+        String editedTextParts1And2 = textBeforeErasable.concat(replacedText);
+        String editedTextTotal = editedTextParts1And2.concat(textAfterTextToBeReplaced);
+
+        paper.setText(editedTextTotal);
 
 
     }

@@ -1,6 +1,4 @@
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.Result;
 
 import static junit.framework.TestCase.*;
 /*
@@ -34,11 +32,12 @@ Sprint Goals for Friday 12/21
    5.) Get started on the Edit method if possible - Got a start on it
 
    Sprint Goals for Friday 12/28
-   1.) Finish the Edit Method - start with testing to see if
-   2.) Edit the ReadMe to tell people how to build my project
-   2.5) Build a simple main method and UI so it runs
-   3.) Refactor/Clean-up
-   4.) Send it with email to Julie at Pillar
+   0.5) Version control - new branch etc. - done
+   1.) Finish the Edit Method - start with testing to see if write method works repeatedly - (write does work repeatedly) - some tests for building this method are passing...
+   2.) Edit the ReadMe to tell people how to build my project - worked on it
+   2.5) Build a simple main method and UI so it runs  - not today
+   3.) Refactor/Clean-up - weekend
+   4.) Send it with email to Julie at Pillar - maybe?
 
 
 
@@ -74,14 +73,16 @@ public class Pencil2Test {
         assertEquals(71, pencil.getCurrentPointDurability());
     }
 
-
-    private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability) {
-        pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
-        paper = new Paper("");
-        pencil.write(testText, paper);
+    @Test
+    public void givenInputTextWithVariousTypesOfChars_whenWriteIsCalledMultipleTimes_thenNewTextOnPaperIsAppendedImmediatelyAfterPreviousText() {
+        prepContextForWhenPencilWrites("How much wood would a WoodChuck chuck, ", 100, 10, 20);
+        pencil.write("If a Woodchuck could chuck wood?", paper);
+        assertEquals("How much wood would a WoodChuck chuck, If a Woodchuck could chuck wood?", paper.getText());
     }
 
+
     //testing the Pencil2.sharpen() method that restores initialPointDurability and reduces length by one
+
     @Test
     public void whenSharpenIsCalled_thenCurrentPointDurabilityIsSetToInitialPointDurability() {
         Pencil2 pencil = new Pencil2(50, 3, 10, 10, 10);
@@ -97,6 +98,7 @@ public class Pencil2Test {
     }
 
     //Testing the Pencil2.erase(String text, Paper paper) method that removes written characters from paper and compares to paper.getText()
+
     @Test
     public void givenTextStringInput_whenReverseIsCalled_thenTheSameStringBackwardsIsReturned() {
         Pencil2 pencil = new Pencil2(100, 10, 20);
@@ -114,14 +116,14 @@ public class Pencil2Test {
 
     }
 
-   /* @Test
-    public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLength() {
-        Pencil2 pencil = new Pencil2(100, 10, 20);
-        String testText = "War does";
-        pencil.createBlankTextOfLength(testText, testText.length());
-        assertEquals(12, pencil.getCurrentEraserDurability());
-    }*/
 
+    /* @Test
+     public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLength() {
+         Pencil2 pencil = new Pencil2(100, 10, 20);
+         String testText = "War does";
+         pencil.createBlankTextOfLength(testText, testText.length());
+         assertEquals(12, pencil.getCurrentEraserDurability());
+     }*/
     @Test
     public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLengthNotIncludingWhitespaceCharacters() {
         Pencil2 pencil = new Pencil2(100, 10, 20);
@@ -217,6 +219,7 @@ public class Pencil2Test {
     }
 
 
+
    /* @Test
     public void whenEraseTextArgIsBlahAndEraserDurabilityIs3_thenEraseReturnsBlanksPlusB() {
         String testText = "OMG! Blah Blah";
@@ -228,6 +231,7 @@ public class Pencil2Test {
         assertEquals("   B", paper.getText());
     }*/
 
+    //Testing the edit method
     @Test
     public void givenTextToEraseAndReplacementText_whenEditIsCalled_thenPaperHasReplacementTextWhereTextToEraseWas() {
         String testText = "OMG! Blah Blah";
@@ -237,10 +241,29 @@ public class Pencil2Test {
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
-        pencil.edit(testTextToErase, testReplacementText,paper);
+        pencil.edit(testTextToErase, testReplacementText, paper);
         assertEquals("OMG! Blah Owls   ", paper.getText());
     }
 
+    @Test
+    public void givenTextToErase_whenFindIndexOfLastOccurrenceOfErasableTextIsCalled_thenIntegerOfFirstIndexIsReturnedForAnyEraserDurabilityGreaterThan0() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil2 pencil = new Pencil2(100, 10, 20);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper);
+        assertEquals(10, pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper));
+
+    }
+
+    //Below: private methods to create context for some tests
+
+    private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability) {
+        pencil = new Pencil2(initialPointDurability, length, initialEraserDurability);
+        paper = new Paper("");
+        pencil.write(testText, paper);
+    }
 
 }
 
