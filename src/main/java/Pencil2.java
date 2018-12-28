@@ -58,12 +58,14 @@ public class Pencil2 {
     }
 
 
-    public void erase(String textToErase, Paper paper) {
+    public int erase(String textToErase, Paper paper) {
+        int indexOfErasedText = paper.getText().indexOf(textToErase); // calculate & return for edit method
         //calculate how much text to replace based on current Eraser Durability
         if (textToErase.length() > getCurrentEraserDurability()) {
-            erasePartial(textToErase, paper);
+            erasePartial(indexOfErasedText, textToErase, paper);
 
         } else {
+
             //reverse the contents of the text on the paper
             String backwardsContent = reverse(paper.getText());
             //reverse the textToErase
@@ -80,10 +82,11 @@ public class Pencil2 {
             //set the paper text now for testing purposes
             paper.setText(forwardsContentWithErasedText);
         }
+        return indexOfErasedText;
     }
 
 
-    public void erasePartial(String textToErase, Paper paper) {
+    public int erasePartial(int indexOfErasedText, String textToErase, Paper paper) {
         //reverse the contents of the text on the paper
         String backwardsContent = reverse(paper.getText());
         //reverse the textToErase
@@ -108,11 +111,27 @@ public class Pencil2 {
         String forwardsContentWithErasedText = reverse(backwardsContentWithErasedText);
         //set the paper text now for testing purposes
         paper.setText(forwardsContentWithErasedText);
+        indexOfErasedText += (textToErase.length() - currentEraserDurability);
 
         //reset currentEraserDurability to 0
         getCurrentEraserDurability();
         currentEraserDurability = 0;
         setCurrentEraserDurability(0);
+
+        return indexOfErasedText;
+    }
+
+    public void edit(String textToErase, String replacementTextInEdit, Paper paper) {
+        int indexOfErasableText = erase(textToErase, paper); // this is yucky - make a new method to get this index
+        int lengthOfErasableText = calculateLengthOfErasableText(textToErase);
+        String textBeforeErasable = paper.getText().substring(0,(indexOfErasableText-1));
+        //String textAfterErasable = paper.getText().substring(indexOfErasableText+lengthOfErasableText);
+        String textToBeReplaced = paper.getText().substring(indexOfErasableText,(indexOfErasableText+replacementTextInEdit.length()-1));
+        String textAfterTextToBeReplaced = paper.getText().substring(indexOfErasableText+replacementTextInEdit.length());
+
+
+
+
     }
 
 

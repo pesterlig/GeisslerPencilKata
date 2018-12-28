@@ -31,7 +31,14 @@ Sprint Goals for Friday 12/21
    the erase method will not reset currentEraserDurability to 0 is if it is less than textToErase.length - make a test and fix this - fixed
    3.) Make the write method ignore blanks, count capitals, etc. - done!
    4.) Refactor the erase method to remove duplications - not yet
-   5.) Get started on the Edit method if possible
+   5.) Get started on the Edit method if possible - Got a start on it
+
+   Sprint Goals for Friday 12/28
+   1.) Finish the Edit Method - start with testing to see if
+   2.) Edit the ReadMe to tell people how to build my project
+   2.5) Build a simple main method and UI so it runs
+   3.) Refactor/Clean-up
+   4.) Send it with email to Julie at Pillar
 
 
 
@@ -220,6 +227,19 @@ public class Pencil2Test {
         pencil.erase(testTextToErase, paper);
         assertEquals("   B", paper.getText());
     }*/
+
+    @Test
+    public void givenTextToEraseAndReplacementText_whenEditIsCalled_thenPaperHasReplacementTextWhereTextToEraseWas() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        String testReplacementText = "Owls";
+        Pencil2 pencil = new Pencil2(100, 10, 20);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.edit(testTextToErase, testReplacementText,paper);
+        assertEquals("OMG! Blah Owls   ", paper.getText());
+    }
 
 
 }
