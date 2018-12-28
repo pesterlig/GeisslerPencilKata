@@ -246,7 +246,7 @@ public class Pencil2Test {
     }
 
     @Test
-    public void givenTextToErase_whenFindIndexOfLastOccurrenceOfErasableTextIsCalled_thenIntegerOfFirstIndexIsReturnedForAnyEraserDurabilityGreaterThan0() {
+    public void givenTextToErase_whenFindIndexOfLastOccurrenceOfErasableTextIsCalled_thenIntegerOfFirstIndexIsReturnedForEraserDurabilityGreaterThanTextLength() {
         String testText = "OMG! Blah Blah";
         String testTextToErase = "Blah";
         Pencil2 pencil = new Pencil2(100, 10, 20);
@@ -254,6 +254,18 @@ public class Pencil2Test {
         pencil.write(testText, paper);
         pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper);
         assertEquals(10, pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper));
+
+    }
+
+    @Test
+    public void givenTextToErase_whenFindIndexOfLastOccurrenceOfErasableTextIsCalled_thenIntegerOfFirstIndexIsReturnedForAnyEraserDurabilityGreaterThan0() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil2 pencil = new Pencil2(100, 10, 3);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper);
+        assertEquals(11, pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper));
 
     }
 

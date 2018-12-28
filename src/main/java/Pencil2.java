@@ -120,12 +120,13 @@ public class Pencil2 {
     }
 
     public int findIndexOfLastOccurrenceOfErasableText(String textToErase, Paper paper) {
-        int currentPointDurability = getCurrentPointDurability();
+        int currentEraserDurability = getCurrentEraserDurability();
+
         int indexOfErasableText = 0;
 
-        if (currentPointDurability < textToErase.length()) {
+        if (currentEraserDurability < textToErase.length()) {
             indexOfErasableText = paper.getText().lastIndexOf(textToErase);
-            indexOfErasableText += (textToErase.length() - currentPointDurability);
+            indexOfErasableText += (textToErase.length() - currentEraserDurability);
 
         } else {
             indexOfErasableText = paper.getText().lastIndexOf(textToErase);
