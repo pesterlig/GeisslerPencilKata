@@ -240,8 +240,7 @@ public class Pencil2Test {
         Pencil2 pencil = new Pencil2(100, 10, 20);
         Paper paper = new Paper("");
         pencil.write(testText, paper);
-        pencil.erase(testTextToErase, paper);
-        pencil.edit(testTextToErase, testReplacementText, paper);
+                pencil.edit(testTextToErase, testReplacementText, paper);
         assertEquals("OMG! Blah Owls   ", paper.getText());
     }
 
