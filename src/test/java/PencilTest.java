@@ -1,201 +1,227 @@
-import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
 
-public class PencilTest {
-    /*
-    Leaving this test suite and test class for the time being - want to approach the problem in a more agile way
-    do a sprint to make a complete pencil with length, pointDurability, and an eraser
-    but with only basic capabilities for each...not taking too much time - maybe just an afternoon sprint
-    feels like I'm getting bogged down and haven't used testing wisely to help me step thru the logic
-    */
-    Paper paper;
 
+public class PencilTest {
+    //testing the pencil.write(){String text, Paper paper} which returns paper.getText()
+    Paper paper;
     Pencil pencil;
 
 
-    @Before
-    public void setUp() {
-        pencil = new Pencil(20);
+    @Test
+    public void givenPointDurabilityGreaterThanInputTextLength_whenPencilWrites_thenPaperHasSameText() {
+        prepContextForWhenPencilWrites("Blah", 50, 10, 20);
+        assertEquals("Blah", paper.getText());
+    }
+
+    @Test
+    public void givenPointDurabilityGreaterThanLongInputTextLength_whenPencilWrites_thenPaperHasSameText() {
+        prepContextForWhenPencilWrites("War does not determine who's right-\nWar determines who's left", 100, 10, 20);
+        assertEquals("War does not determine who's right-\nWar determines who's left", paper.getText());
+    }
+
+    @Test
+    public void givenInputTextWithWhitespaceChars_whenWriteIsCalled_thenCurrentPointDurabilityIsNotDecreasedForWhitespaceChars() {
+        prepContextForWhenPencilWrites("if a woodchuck could chuck wood?", 100, 10, 20);
+        assertEquals(73, pencil.getCurrentPointDurability());
+    }
+
+    @Test
+    public void givenInputTextWithUppercaseChars_whenWriteIsCalled_thenCurrentPointDurabilityIsDecreasedOneExtraForUppercaseChars() {
+        prepContextForWhenPencilWrites("If a Woodchuck could chuck wood?", 100, 10, 20);
+        assertEquals(71, pencil.getCurrentPointDurability());
+    }
+
+    @Test
+    public void givenInputTextWithVariousTypesOfChars_whenWriteIsCalledMultipleTimes_thenNewTextOnPaperIsAppendedImmediatelyAfterPreviousText() {
+        prepContextForWhenPencilWrites("How much wood would a WoodChuck chuck, ", 100, 10, 20);
+        pencil.write("If a Woodchuck could chuck wood?", paper);
+        assertEquals("How much wood would a WoodChuck chuck, If a Woodchuck could chuck wood?", paper.getText());
+    }
+
+
+    //testing the Pencil.sharpen() method that restores initialPointDurability and reduces length by one
+
+    @Test
+    public void whenSharpenIsCalled_thenCurrentPointDurabilityIsSetToInitialPointDurability() {
+        Pencil pencil = new Pencil(50, 3, 10, 10, 10);
+        pencil.sharpen();
+        assertEquals(pencil.getInitialPointDurability(), pencil.getCurrentPointDurability());
+    }
+
+    @Test
+    public void whenSharpenIsCalled_thenLengthIsDecreasedBy1() {
+        Pencil pencil = new Pencil(50, 3, 10, 10, 10);
+        pencil.sharpen();
+        assertEquals(9, pencil.getLength());
+    }
+
+    //Testing the Pencil.erase(String text, Paper paper) method that removes written characters from paper and compares to paper.getText()
+
+
+    @Test
+    public void givenTextToErase_whenCalculateLengthOfErasableTextisCalled_thenIntOfTextLengthIsReturnedWhicheverIsLess() {
+        Pencil pencil = new Pencil(100, 10, 20);
+        String testTextToErase = "does";
+        pencil.calculateLengthOfErasableText(testTextToErase);
+        assertEquals(4, pencil.calculateLengthOfErasableText(testTextToErase));
+    }
+
+    @Test
+    public void givenTextToEraseLongerThanEraserDurability_whenCalculateLengthOfErasableTextisCalled_thenIntEraserDurabilityIsReturnedWhicheverIsLess() {
+        Pencil pencil = new Pencil(100, 10, 3);
+        String testTextToErase = "does";
+        pencil.calculateLengthOfErasableText(testTextToErase);
+        assertEquals(3, pencil.calculateLengthOfErasableText(testTextToErase));
+    }
+
+    @Test
+    public void givenTextStringInput_whenCreateBlankIsCalled_thenAStringOfSpacesOfTextLengthIsReturned() {
+        Pencil pencil = new Pencil(100, 10, 20);
+        String testText = "War does";
+        pencil.createBlankTextOfLength(testText, testText.length());
+        assertEquals("        ", pencil.createBlankTextOfLength(testText, testText.length()));
+
+    }
+
+    @Test
+    public void givenTextStringInput_whenCreateBlankIsCalled_thenCurrentEraserDurabilityDecreasesByLengthNotIncludingWhitespaceCharacters() {
+        Pencil pencil = new Pencil(100, 10, 20);
+        String testText = "War does";
+        pencil.createBlankTextOfLength(testText, testText.length());
+        assertEquals(13, pencil.getCurrentEraserDurability());
+    }
+
+    @Test
+    public void whenEraseTextLengthIsLessThanEraserDurability_thenTheLastInstanceOfTheTextIsReplacedWithBlankSpaces() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil pencil = new Pencil(50, 50, 10, 50, 50);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        assertEquals("OMG! Blah     ", paper.getText());
+    }
+
+    @Test
+    public void givenEraserDurabilityLessThanTextToErase_whenCalculateLengthOfErasableTextIsCalled_thenIntEraserDurabilityIsReturned() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil pencil = new Pencil(100, 10, 3);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.calculateLengthOfErasableText(testTextToErase);
+        assertEquals(pencil.getCurrentEraserDurability(), pencil.calculateLengthOfErasableText(testTextToErase));
+    }
+
+    @Test
+    public void givenEraserDurabilityGreaterThanTextToErase_whenEraseIsCalled_thenLastInstanceOfTextReplacedWithBlankSpaces() {
+        String testText = "Optimist: She who doesn't understand the complexity of the Pencil Kata yet";
+        String testTextToErase = "the";
+        Pencil pencil = new Pencil(100, 10, 50);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        assertEquals("Optimist: She who doesn't understand the complexity of     Pencil Kata yet", paper.getText());
+    }
+
+    @Test
+    public void givenEraserDurabilityGreaterThanTextToErase_whenEraseIsCalledTwice_thenLastTwoInstancesOfTextReplacedWithBlankSpaces() {
+        String testText = "War does not determine who's right-\nWar determines who's left";
+        String testTextToErase = "who";
+        Pencil pencil = new Pencil(100, 10, 50);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.erase(testTextToErase, paper);
+
+        assertEquals("War does not determine    's right-\nWar determines    's left", paper.getText());
+    }
+
+    @Test
+    public void givenEraserDurabilitylessThanTextToErase_whenEraseIsCalledTwice_thenLastTwoInstancesOfTextReplacedWithBlankSpacesAndRemainingText() {
+        String testText = "War does not determine who's right-\nWar determines who's left";
+        String testTextToErase = "who";
+        Pencil pencil = new Pencil(100, 10, 5);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.erase(testTextToErase, paper);
+
+        assertEquals("War does not determine w  's right-\nWar determines    's left", paper.getText());
+    }
+
+    @Test
+    public void givenEraserDurabilityEqualTo1andHalfOfText_whenEraseCalledThrice_then1stInstanceErased2ndPartiallyErased3rdNotErased() {
+        String testText = "How much wood could a wood chuck chuck,\nif a wood chuck could chuck wood?";
+        String testTextToErase = "chuck";
+        Pencil pencil = new Pencil(100, 10, 7);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.erase(testTextToErase, paper);
+        assertEquals("How much wood could a wood chuck chuck,\nif a wood chu   could       wood?", paper.getText());
+    }
+
+    @Test
+    public void whenEraseTextArgIs4AndEraserDurabilityIs3_thenTheLast3CharsAreReplacedWithBlankSpacesOnPaper() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil pencil = new Pencil(100, 10, 3);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        assertEquals("OMG! Blah B   ", paper.getText());
+    }
+
+
+    //Testing the edit method
+    @Test
+    public void givenTextToEraseAndReplacementText_whenEditIsCalled_thenPaperHasReplacementTextWhereTextToEraseWas() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        String testReplacementText = "Owls";
+        Pencil pencil = new Pencil(100, 10, 20);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+                pencil.edit(testTextToErase, testReplacementText, paper);
+        assertEquals("OMG! Blah Owls   ", paper.getText());
+    }
+
+    @Test
+    public void givenTextToErase_whenFindIndexOfLastOccurrenceOfErasableTextIsCalled_thenIntegerOfFirstIndexIsReturnedForEraserDurabilityGreaterThanTextLength() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil pencil = new Pencil(100, 10, 20);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper);
+        assertEquals(10, pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper));
+
+    }
+
+    @Test
+    public void givenTextToErase_whenFindIndexOfLastOccurrenceOfErasableTextIsCalled_thenIntegerOfFirstIndexIsReturnedForAnyEraserDurabilityGreaterThan0() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        Pencil pencil = new Pencil(100, 10, 3);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper);
+        assertEquals(11, pencil.findIndexOfLastOccurrenceOfErasableText(testTextToErase, paper));
+
+    }
+
+    //Below: private methods to create context for some tests
+
+    private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability) {
+        pencil = new Pencil(initialPointDurability, length, initialEraserDurability);
         paper = new Paper("");
-    }
-
-    /*@Test
-    public void whenPencilWritesAString_thenPaperSetsText() {
-        pencil.write("blah", paper);
-        assertEquals("blah", "blah");
-    }*/
-
-    /*@Test
-    public void whenPencilWriteSetsTextOnPaper_thenGetTextReturnsTheTextValueAndAddsNewTextToIt() {
-        paper.setText("blah");
-        pencil.write("blah", paper);
-        assertEquals("blahblah", paper.getText());
-    }*/
-
-    //Tests for the Write() method, which checks currentPointDurability and adds characters to String array called: visibleText and calls paper.setText
-    @Test
-    public void whenPencilTextIsOneLowercaseCharAndDurabilityIs1_thenPaperGetTextMethodReturnsThatChar() {
-        prepContextForWriteMethodTests("b", 20, 1);
-        assertEquals("b", paper.getText());
-    }
-
-    @Test
-    public void whenPencilTextIsAWhitespaceCharAndDurabilityIs0_thenPaperGetTextMethodReturnsThatChar() {
-        prepContextForWriteMethodTests("\n", 20, 0);
-        assertEquals("\n", paper.getText());
-    }
-
-    @Test
-    public void whenDurabilityIs2orMore_thenPaperGetTextReturnsAnyOneCharacterExactly() {
-        prepContextForWriteMethodTests("P", 20, 2);
-        assertEquals("P", paper.getText());
-    }
-
-    @Test
-    // Nex two tests: cast the blank spaces to ints and compare values so I have integers to compare in failing tests
-    public void whenDurabilityIs1AndChIsUppercase_thenPaperGetTextReturns1BlankSpaceChar() {
-        prepContextForWriteMethodTests("P", 20, 1);
-        assertEquals((int) (" ".charAt(0)), paper.getText().charAt(0));
-    }
-
-    @Test
-    public void whenDurabilityIs0AndChIsNotWhitespace_thenPaperGetTextReturns1BlankSpaceChar() {
-        prepContextForWriteMethodTests("#", 20, 0);
-        assertEquals((int) (" ".charAt(0)), paper.getText().charAt(0));
-    }
-
-    @Test
-    // In progress - aiming for : when text count of lowercase NonWhitespaceChars is equal to currentPointDurability,
-    // text still prints exactly as written
-    public void whenPencilWritesFewerCharactersAndSpacesThanCurrentDurability_thenPaperGetTextReturnsThoseCharactersAndSpaces() {
-        String testText = " blah blah";
-        pencil = new Pencil(20, 20);
-        pencil.write(testText, paper);
-        assertEquals(" blah blah", paper.getText());
-    }
-
-
-    @Test
-    public void whenPencilCapitalizesBlahAndDurabilityIs3_thenPaperGetTextReturnsBlPlus2Spaces() {
-        prepContextForWriteMethodTests("Blah", 20, 3);
-        assertEquals("Bl  ", paper.getText());
-    }
-
-    @Test
-    public void whenPencilCapitalizesBlahAndDurabilityIs2_thenPaperGetTextReturnsBPlus3Spaces() {
-        prepContextForWriteMethodTests("Blah", 20, 2);
-        assertEquals("B   ", paper.getText());
-    }
-
-
-    @Test
-    public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_AndNonWhitespaceCharsAreEqualToDurability_thenPaperGetTextReturnsTheEntireText() {
-        prepContextForWriteMethodTests("Blah \n Blah Blah\r", 20, 15);
-        assertEquals("Blah \n Blah Blah\r", paper.getText());
-    }
-
-    @Test //this test found that the method added three whitespace char
-    public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_thenCountWhitespaceIsEqualforTestTextAndVisibleText(){
-     prepContextForWriteMethodTests("Blah \n Blah Blah\r",50,15);
-     assertEquals(pencil.countWhitespaceChars("Blah \n Blah Blah\r"),pencil.countWhitespaceChars(paper.getText()));
-    }
-
-    @Test //this test found that the method lost an Uppercase char
-    public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_thenCountUppercaseIsEqualforTestTextAndVisibleText(){
-        prepContextForWriteMethodTests("Blah \n Blah Blah\r",50,15);
-        assertEquals(pencil.countUppercaseChars("Blah \n Blah Blah\r"),pencil.countUppercaseChars(paper.getText()));
-    }
-
-    @Test //this test found that the method lost three Non Whitespace chars
-    public void whenTextIsBlahBlahBlahwithNewlinesAndSpaces_thenCountNonWhitespaceIsEqualforTestTextAndVisibleText(){
-        prepContextForWriteMethodTests("Blah \n Blah Blah\r",50,15);
-        assertEquals(pencil.countNonWhitespaceChars("Blah \n Blah Blah\r"),pencil.countNonWhitespaceChars(paper.getText()));
-    }
-
-
-
-
-    /*
-    how do I know the tests above are universal and non-trivial?  They are getting ridiculous...
-    Need to count both whitespace and nonwhitespace chars in a given text, plus uppercase chars to use for comparisons
-    to see that pencil is writing properly
-    */
-
-    @Test
-    public void whenPencilTextIsEntered_thenCountNonWhitespaceCharsReturnsACountOfAllNonWhitespaceChars() {
-        pencil = new Pencil(40, 40);
-        String testText = "Half of Large Intestine\nEquals 1 ; ";
-        pencil.countNonWhitespaceChars(testText);
-        assertEquals(28, pencil.countNonWhitespaceChars(testText));
-    }
-
-    @Test
-    public void whenPencilTextIsEntered_thenCountWhitespaceCharsReturnsACountOfAllWhitespaceChars() {
-        pencil = new Pencil(40, 40);
-        String testText = "Half of Large Intestine\nEquals 1 ; ";
-        pencil.countWhitespaceChars(testText);
-        assertEquals(7, pencil.countWhitespaceChars(testText));
-    }
-
-    @Test
-    public void whenPencilTextIsEntered_thenCountUppercaseCharsReturnsACountOfAllUppercaseChars() {
-        pencil = new Pencil(40, 40);
-        String testText = "Half of Large Intestine\nEquals 1 ; ";
-        pencil.countWhitespaceChars(testText);
-        assertEquals(4, pencil.countUppercaseChars(testText));
-    }
-
-    /*
-    Now I can enter visibleText into the count methods and see if things are writing properly.
-    Seems like the methods in Pencil for the three above tests are for testing purposes
-    and should not exist in production code...refactor later?
-    */
-
-
-    /*pencil durability needs to change as each character is written - it needs to receive char as an argument
-    write tests to make setCurrentPointDurability take chars as argument and return CPD for each case:Uppercase, lowercase, whitespace*/
-
-    @Test
-    public void whenCurrentPointDurabilityGreaterThanOrEquals2AndCharacterIsUppercase_thenCurrentPointDurabilityIsReducedBy2() {
-        prepContextForSetDurabilityTests('A', 20, 2);
-        assertEquals(0, pencil.getCurrentPointDurability());
-    }
-
-    @Test
-    public void whenCurrentPointDurabilityGreaterThanOrEquals1AndCharacterIsLowercase_thenCurrentPointDurabilityIsReducedBy1() {
-        prepContextForSetDurabilityTests('a', 20, 1);
-        assertEquals(0, pencil.getCurrentPointDurability());
-    }
-
-    @Test
-    public void whenCurrentPointDurabilityGreaterThanOrEquals0AndCharacterIsNewline_thenCurrentPointDurabilityRemainsTheSame() {
-        prepContextForSetDurabilityTests('\n', 20, 0);
-        assertEquals(0, pencil.getCurrentPointDurability());
-    }
-
-    @Test
-    public void whenCurrentPointDurabilityGreaterThanOrEquals1AndCharacterIsNoTUppercaseAndNotWhitespace_thenCurrentPointDurabilityIsReducedBy1() {
-        prepContextForSetDurabilityTests('$', 20, 1);
-        assertEquals(0, pencil.getCurrentPointDurability());
-    }
-
-
-    //Context Methods extracted from tests
-
-    private void prepContextForSetDurabilityTests(Character testCh, int initialPointDurability, int currentPointDurability) {
-        pencil = new Pencil(initialPointDurability, currentPointDurability);
-        pencil.setCurrentPointDurability(testCh);
-
-    }
-
-    private void prepContextForWriteMethodTests(String testText, int initialPointDurability, int currentPointDurability) {
-        pencil = new Pencil(initialPointDurability, currentPointDurability);
         pencil.write(testText, paper);
     }
-
-
-
 
 }
+
+

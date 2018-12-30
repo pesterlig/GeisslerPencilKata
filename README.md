@@ -1,54 +1,26 @@
-Pencil Durability Kata for Pillar Technology 
-This program models a traditional wooden pencil 
-with write, sharpen, erase and edit functions.  It has no UI at present 
-and exists as an apprentice exercise on Test Driven Development.
+Pencil Durability Kata for Pillar Technology -  
+This program models a traditional wooden pencil with write, sharpen, erase and edit functions as an apprentice exercise on Test Driven Development. 
+Running Tests and Demo:
+Run program demo from the command line with 
+Run unit tests from the command line with 
+For more commands refer to:
+https://docs.gradle.org/current/userguide/command_line_interface.html
+Prerequisites:
+To build this project, clone it from Github to Intellij or Similar IDE, Gradle version 4.10, Java 10 & JDK 10
 
-Getting Started
-To build this project, clone it from Github
-with the following configuration:
-JDK 10
-Gradle 4.10
-
-
-Prerequisites
-Intellij or Similar IDE, Gradle version 4.10, Java 10 & JDK 10
-
-
-Running the tests
-Tests are runnable from the command line.  
-There are two files of junit tests: PaperTest and Pencil2Test.
-Pencil2Contains the majority of the test code. 
-
-The paper methods were tested first - paper has text and methods 
-to get and set text.
-Pencil methods were tested second, starting with write methods, then sharpen,
-then erase, then edit
-
-Coding style is standard
-
-
-
-Built With
+Built With:
 Java SDK
 Gradle 4.10 - Dependency Management & project build
-
-Versioning
+Standard Coding Style
+Versioning:
 intellij VCS and GitHub for versioning. 
 
-Author
+Author:
 Leslie Geissler
 
-
-Acknowledgments
-Thanks to Baeldung, Oracle and the good folks at who contribute to Stack
-Overflow for explaining things to beginners.
-Extra Thanks to my mentor, Bruce Lindman Jr. at Careworks Tech for advice 
-and tutoring.
-
-Inspiration
+Inspiration:
 Kata provided by Jed Duffey and James Kirkbride of Pillar Techology
-
-The text for the problem posed by the Kata is included below:
+A copy of the problem posed by the Kata is included below:
 
 Pencil Durability Kata
 The purpose of the Pencil Durability Kata is to write code to simulate, first coarsely and then more faithfully, an ordinary graphite pencil. It includes writing and editing text, point degradation, using the eraser, and sharpening the pencil. The point of this kata is to provide a larger-than-trivial exercise that can be used to practice TDD. A significant portion of the effort will be in determining which tests should be written and, more importantly, written next.
