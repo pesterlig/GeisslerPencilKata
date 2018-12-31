@@ -58,6 +58,8 @@ public class Pencil {
 
 
     public void erase(String textToErase, Paper paper) {
+        int indexOfErasableText = findIndexOfLastOccurrenceOfErasableText(textToErase,paper);
+        paper.getErasureIndices().add(indexOfErasableText);
         //calculate how much text to replace based on current Eraser Durability
         if (textToErase.length() > getCurrentEraserDurability()) {
             erasePartial(textToErase, paper);
