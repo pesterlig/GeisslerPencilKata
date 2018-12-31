@@ -178,7 +178,7 @@ public class PencilTest {
 
 
     //Testing the edit method
-    @Test
+   /* @Test
     public void givenTextToEraseAndReplacementText_whenEditIsCalled_thenPaperHasReplacementTextWhereTextToEraseWas() {
         String testText = "OMG! Blah Blah";
         String testTextToErase = "Blah";
@@ -188,6 +188,19 @@ public class PencilTest {
         pencil.write(testText, paper);
                 pencil.edit(testTextToErase, testReplacementText, paper);
         assertEquals("OMG! Blah Owls   ", paper.getText());
+    }*/
+
+    @Test
+    public void givenReplacementText_whenEditIsCalled_thenPaperHasReplacementTextWhereErasedTextWas() {
+        String testText = "OMG! Blah Blah";
+        String testTextToErase = "Blah";
+        String testReplacementText = "Owls";
+        Pencil pencil = new Pencil(100, 10, 20);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.edit(testReplacementText, paper);
+        assertEquals("OMG! Blah Owls", paper.getText());
     }
 
     @Test

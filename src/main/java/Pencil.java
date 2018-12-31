@@ -33,6 +33,7 @@ public class Pencil {
         String visibleText = "";
         for (int i = 0; i < text.length(); i++) {
             Character ch = text.charAt(i);
+
             if (currentPointDurability >= 1) {
                 if (Character.isUpperCase(ch)) {
                     currentPointDurability -= 1;
@@ -58,7 +59,7 @@ public class Pencil {
 
 
     public void erase(String textToErase, Paper paper) {
-        int indexOfErasableText = findIndexOfLastOccurrenceOfErasableText(textToErase,paper);
+        int indexOfErasableText = findIndexOfLastOccurrenceOfErasableText(textToErase, paper);
         paper.getErasureIndices().add(indexOfErasableText);
         //calculate how much text to replace based on current Eraser Durability
         if (textToErase.length() > getCurrentEraserDurability()) {
@@ -137,7 +138,58 @@ public class Pencil {
         return indexOfErasableText;
     }
 
-    public void edit(String textToErase, String replacementTextInEdit, Paper paper) {
+    public void edit(String replacementText, Paper paper) {
+
+        int indexOfLastElementInErasureIndices = paper.getErasureIndices().size() - 1;
+        int indexOfLastErasure = paper.getErasureIndices().get(indexOfLastElementInErasureIndices);
+
+        String textFirstPart = paper.getText().substring(0, (indexOfLastErasure));
+        String textLastPart = paper.getText().substring((indexOfLastErasure + replacementText.length()));
+
+        String entireEditedText = "";
+
+
+        String editedText = "";
+        for (int i = 0; i < replacementText.length(); i++) {
+            Character ch = replacementText.charAt(i);
+
+
+            if (currentPointDurability >= 1) {
+                if (Character.isUpperCase(ch)) {
+                    currentPointDurability -= 1;
+                }
+
+                Character characterOfOriginalText = (paper.getText().charAt(indexOfLastErasure + i));
+                String stringCharacterOfOriginalText = characterOfOriginalText.toString();
+                Pattern pattern = Pattern.compile("\\S");
+                Matcher matcher = pattern.matcher(stringCharacterOfOriginalText);
+                if (matcher.find()) {
+                    editedText += "@";
+                    currentPointDurability -= 1;
+                }
+                editedText += ch.toString();
+                currentPointDurability -= 1;
+
+                //Check for Whitespace Chars
+                if (!matcher.find()) {
+                    getCurrentPointDurability();
+                    currentPointDurability += 1;
+                    setCurrentPointDurability(currentPointDurability);
+                }
+
+            } else {
+                editedText += " ";
+            }
+            String firstHalfEntireEditedText = textFirstPart.concat(editedText);
+            entireEditedText = firstHalfEntireEditedText.concat(textLastPart);
+
+        }
+        paper.setText(entireEditedText);
+    }
+
+    //Below: Edit Method 1 - realized no erase needed in edit method - reworking this method
+
+    /*public void edit(String textToErase, String replacementTextInEdit, Paper paper) {
         int indexOfErasableText = findIndexOfLastOccurrenceOfErasableText(textToErase, paper);
         int lengthOfReplaceableText = replacementTextInEdit.length();
 
@@ -167,7 +219,7 @@ public class Pencil {
 
 
     }
-
+*/
 
     public int calculateLengthOfErasableText(String textToErase) {
         int lengthOfErasableText = 0;
