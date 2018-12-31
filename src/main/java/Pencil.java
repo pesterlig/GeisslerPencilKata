@@ -166,12 +166,14 @@ public class Pencil {
                 if (matcher.find()) {
                     editedText += "@";
                     currentPointDurability -= 1;
+                }else {
+                    editedText += ch.toString();
+                    currentPointDurability -= 1;
                 }
-                editedText += ch.toString();
-                currentPointDurability -= 1;
-
                 //Check for Whitespace Chars
-                if (!matcher.find()) {
+
+                Matcher nextMatcher = pattern.matcher(replacementText);
+                if (!nextMatcher.find()) {
                     getCurrentPointDurability();
                     currentPointDurability += 1;
                     setCurrentPointDurability(currentPointDurability);
