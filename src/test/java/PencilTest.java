@@ -230,6 +230,20 @@ public class PencilTest {
 
     }
 
+    @Test
+    public void whenReplacementTextIsLongerThanOriginalText_andEditIsCalled_PencilWritesReplacementTextBeyondTheLengthOfOriginalText(){
+        String testText = "An apple a day keeps the doctor away";
+        String testTextToErase = "away";
+        String testReplacementText = "artichoke";
+        Pencil pencil = new Pencil(100, 10, 20);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.edit(testReplacementText, paper);
+        assertEquals("An apple a day keeps the doctor artichoke", paper.getText());
+
+    }
+
     //Below: private methods to create context for some tests
 
     private void prepContextForWhenPencilWrites(String testText, int initialPointDurability, int length, int initialEraserDurability) {
