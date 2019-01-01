@@ -5,8 +5,6 @@ public class Paper {
     private String text;
     private ArrayList<Integer>erasureIndices;
 
-
-
     public Paper(String text) {
         this.text = text;
         this.erasureIndices = new ArrayList<>();
@@ -19,8 +17,6 @@ public class Paper {
     public void setErasureIndices(ArrayList<Integer> erasureIndices) {
         this.erasureIndices = erasureIndices;
     }
-
-
 
     public String getText() {
         return text;

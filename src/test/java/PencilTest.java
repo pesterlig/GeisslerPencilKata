@@ -24,13 +24,13 @@ public class PencilTest {
     @Test
     public void givenInputTextWithWhitespaceChars_whenWriteIsCalled_thenCurrentPointDurabilityIsNotDecreasedForWhitespaceChars() {
         prepContextForWhenPencilWrites("if a woodchuck could chuck wood?", 100, 10, 20);
-        assertEquals(73, pencil.getCurrentPointDurability());
+        assertEquals(73, pencil.getPointDurability());
     }
 
     @Test
     public void givenInputTextWithUppercaseChars_whenWriteIsCalled_thenCurrentPointDurabilityIsDecreasedOneExtraForUppercaseChars() {
         prepContextForWhenPencilWrites("If a Woodchuck could chuck wood?", 100, 10, 20);
-        assertEquals(71, pencil.getCurrentPointDurability());
+        assertEquals(71, pencil.getPointDurability());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class PencilTest {
     public void whenSharpenIsCalled_thenCurrentPointDurabilityIsSetToInitialPointDurability() {
         Pencil pencil = new Pencil(50, 3, 10, 10, 10);
         pencil.sharpen();
-        assertEquals(pencil.getInitialPointDurability(), pencil.getCurrentPointDurability());
+        assertEquals(pencil.getInitialPointDurability(), pencil.getPointDurability());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class PencilTest {
         Pencil pencil = new Pencil(100, 10, 20);
         String testText = "War does";
         pencil.createBlankTextOfLength(testText, testText.length());
-        assertEquals(13, pencil.getCurrentEraserDurability());
+        assertEquals(13, pencil.getEraserDurability());
     }
 
     @Test
@@ -112,7 +112,7 @@ public class PencilTest {
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.calculateLengthOfErasableText(testTextToErase);
-        assertEquals(pencil.getCurrentEraserDurability(), pencil.calculateLengthOfErasableText(testTextToErase));
+        assertEquals(pencil.getEraserDurability(), pencil.calculateLengthOfErasableText(testTextToErase));
     }
 
     @Test

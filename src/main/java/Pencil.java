@@ -2,67 +2,132 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+// todo clean up whitespaces, make sure methods are one line apart, and variables are 0 lines apart
+// todo ensure constructors are first methods on your class, and if you have overloaded constructors,
+//      order them by number of arguments (more args go lower down)
+//      Why? The first thing someone wants to see when they open your class is how to make it!
+//      Constructors with the fewest parameters give them the bare minimum info about your class to get going
+// todo move all getters and setters to the bottom of the file, below methods
+//      Why? They don't contain the core behavior of the class, they are mostly for convention, so they create extra noise throughout your class
+//      Put that noise at the bottom where it's out of the way!
+// todo find "like logic", or duplicated code blocks, and shunt them out to methods, to be called by the things that they were previously in
+//      EXCEPTION: Don't do this step for constructor methods: A clean constructor abides by the idea that the instance of the class does not exist
+//      until it's done being called, so avoid calling other methods of the class from within the constructor
+// todo clean up long argument names! these can just be "pointDurability" and "eraserDurability"
+//      Why? you can think of methods as having their own scope, and you only need to be specific enough to not mix things up within that scope
+
+// todo if a block of code is long, it is generally doing a complex task. If you can describe that task succinctly,
+//  make a method with that description as the name
+// then call that method instead of doing the code block directly. This helps keep the main logic readable, because it breaks it out into steps
+
+// LONG EXAMPLE the logic in this if statement loop is doing what?
+
+// it's writing a character.
+
+   /*  // todo this process can be repeated over and over to create smaller more specific methods!
+    private Character writeCharacter(Character ch){
+
+        if (PointDurability >= 1) {
+            if (Character.isUpperCase(ch)) {
+                PointDurability -= 1;
+            }
+            writtenCharacter = ch.toString();
+            PointDurability -= 1;
+
+            //Check for Whitespace Chars
+            Pattern pattern = Pattern.compile("\\s");
+            Matcher matcher = pattern.matcher(ch.toString());
+            if (matcher.find()) {
+                getPointDurability();
+                PointDurability += 1;
+                setPointDurability(PointDurability);
+            }
+        } else {
+            writtenCharacter = " ";
+        }
+        return writtenCharacter;
+    }
+    */
+
+// then the method becomes
+    /*
+    public void write(String text, Paper paper) {
+        String writtenText = "";
+        for (int i = 0; i < text.length(); i++) {
+            writtenText += writeCharacter(text.charAt(i));
+        }
+        paper.setText(paper.getText() + writtenText);
+    }
+    Which is much more readable
+    * */
+
+/*
+ * When you do this, always put the methods in the order that they are called by the code, so as you read down the page,
+ * you see where each one is being used before you read through it, giving you context on the usage
+ * */
+
+
 public class Pencil {
 
     private int initialPointDurability;
-    private int currentPointDurability;
+    private int PointDurability;
     private int length;
     private int initialEraserDurability;
-    private int currentEraserDurability;
+    private int EraserDurability;
 
     public Pencil(int initialPointDurability, int length, int initialEraserDurability) {
         this.initialPointDurability = initialPointDurability;
-        this.currentPointDurability = initialPointDurability;
+        this.PointDurability = initialPointDurability;
         this.length = length;
         this.initialEraserDurability = initialEraserDurability;
-        this.currentEraserDurability = initialEraserDurability;
+        this.EraserDurability = initialEraserDurability;
     }
 
-    //(overloaded constructor, used mainly for testing purposes)
-
-    public Pencil(int initialPointDurability, int currentPointDurability, int length, int initialEraserDurability, int currentEraserDurability) {
+    public Pencil(int initialPointDurability, int PointDurability, int length, int initialEraserDurability, int EraserDurability) {
         this.initialPointDurability = initialPointDurability;
-        this.currentPointDurability = currentPointDurability;
+        this.PointDurability = PointDurability;
         this.length = length;
         this.initialEraserDurability = initialEraserDurability;
-        this.currentEraserDurability = currentEraserDurability;
+        this.EraserDurability = EraserDurability;
     }
 
     public void write(String text, Paper paper) {
-
-        String visibleText = "";
+        String writtenText = "";
+        //Below - What is this loop doing? Adding one character to the String writtenText.
         for (int i = 0; i < text.length(); i++) {
+
             Character ch = text.charAt(i);
 
-            if (currentPointDurability >= 1) {
+            if (PointDurability >= 1) {
                 if (Character.isUpperCase(ch)) {
-                    currentPointDurability -= 1;
+                    PointDurability -= 1;
                 }
-                visibleText += ch.toString();
-                currentPointDurability -= 1;
+                writtenText += ch.toString();
+                PointDurability -= 1;
 
                 //Check for Whitespace Chars
                 Pattern pattern = Pattern.compile("\\s");
                 Matcher matcher = pattern.matcher(ch.toString());
                 if (matcher.find()) {
-                    getCurrentPointDurability();
-                    currentPointDurability += 1;
-                    setCurrentPointDurability(currentPointDurability);
+                    getPointDurability();
+                    PointDurability += 1;
+                    setPointDurability(PointDurability);
                 }
-
             } else {
-                visibleText += " ";
+                writtenText += " ";
             }
         }
-        paper.setText(paper.getText() + visibleText);
+        paper.setText(paper.getText() + writtenText);
     }
+
 
 
     public void erase(String textToErase, Paper paper) {
         int indexOfErasableText = findIndexOfLastOccurrenceOfErasableText(textToErase, paper);
         paper.getErasureIndices().add(indexOfErasableText);
         //calculate how much text to replace based on current Eraser Durability
-        if (textToErase.length() > getCurrentEraserDurability()) {
+        if (textToErase.length() > getEraserDurability()) {
             erasePartial(textToErase, paper);
 
         } else {
@@ -83,9 +148,7 @@ public class Pencil {
             //set the paper text now for testing purposes
             paper.setText(forwardsContentWithErasedText);
         }
-
     }
-
 
     public void erasePartial(String textToErase, Paper paper) {
         //reverse the contents of the text on the paper
@@ -94,10 +157,10 @@ public class Pencil {
         String backwardsTextToErase = reverse(textToErase);
 
         //create a substring which is the end of the backwards textToErase that is unchanged
-        String unchangedReversedTextSubstring = backwardsTextToErase.substring(currentEraserDurability, textToErase.length());
+        String unchangedReversedTextSubstring = backwardsTextToErase.substring(EraserDurability, textToErase.length());
 
-        //create an array of blank spaces of the same length as currentEraserDurability
-        char[] blanksArray = new char[currentEraserDurability];
+        //create an array of blank spaces of the same length as EraserDurability
+        char[] blanksArray = new char[EraserDurability];
         //fill array with blank chars
         Arrays.fill(blanksArray, ' ');
         //convert array to a string
@@ -114,16 +177,16 @@ public class Pencil {
         paper.setText(forwardsContentWithErasedText);
 
 
-        //reset currentEraserDurability to 0
-        getCurrentEraserDurability();
-        currentEraserDurability = 0;
-        setCurrentEraserDurability(0);
+        //reset EraserDurability to 0
+        getEraserDurability();
+        EraserDurability = 0;
+        setEraserDurability(0);
 
 
     }
 
     public int findIndexOfLastOccurrenceOfErasableText(String textToErase, Paper paper) {
-        int currentEraserDurability = getCurrentEraserDurability();
+        int currentEraserDurability = getEraserDurability();
 
         int indexOfErasableText = 0;
 
@@ -154,9 +217,9 @@ public class Pencil {
             Character ch = replacementText.charAt(i);
 
 
-            if (currentPointDurability >= 1) {
+            if (PointDurability >= 1) {
                 if (Character.isUpperCase(ch)) {
-                    currentPointDurability -= 1;
+                    PointDurability -= 1;
                 }
 
                 Character characterOfOriginalText = (paper.getText().charAt(indexOfLastErasure + i));
@@ -165,18 +228,18 @@ public class Pencil {
                 Matcher matcher = pattern.matcher(stringCharacterOfOriginalText);
                 if (matcher.find()) {
                     editedText += "@";
-                    currentPointDurability -= 1;
-                }else {
+                    PointDurability -= 1;
+                } else {
                     editedText += ch.toString();
-                    currentPointDurability -= 1;
+                    PointDurability -= 1;
                 }
                 //Check for Whitespace Chars
 
                 Matcher nextMatcher = pattern.matcher(replacementText);
                 if (!nextMatcher.find()) {
-                    getCurrentPointDurability();
-                    currentPointDurability += 1;
-                    setCurrentPointDurability(currentPointDurability);
+                    getPointDurability();
+                    PointDurability += 1;
+                    setPointDurability(PointDurability);
                 }
 
             } else {
@@ -189,48 +252,13 @@ public class Pencil {
         paper.setText(entireEditedText);
     }
 
-    //Below: Edit Method 1 - realized no erase needed in edit method - reworking this method
-
-    /*public void edit(String textToErase, String replacementTextInEdit, Paper paper) {
-        int indexOfErasableText = findIndexOfLastOccurrenceOfErasableText(textToErase, paper);
-        int lengthOfReplaceableText = replacementTextInEdit.length();
-
-        int lengthOfErasableText = calculateLengthOfErasableText(textToErase);
-        String replacedText = "";
-        String textBeforeErasable = paper.getText().substring(0, (indexOfErasableText - 1));
-        //String textAfterErasable = paper.getText().substring(indexOfErasableText+lengthOfErasableText);
-        String textToBeReplaced = paper.getText().substring(indexOfErasableText, (indexOfErasableText + replacementTextInEdit.length() - 1));
-        String textAfterTextToBeReplaced = paper.getText().substring(indexOfErasableText + replacementTextInEdit.length());
-        for (int i = 0; i < lengthOfReplaceableText; i++) {
-            String stringOfLengthOneToBeReplaced = "";
-            String replacementTextOfLengthOne = replacementTextInEdit.substring(i, i);
-            Pattern pattern = Pattern.compile("\\S"); //non-whitespace
-            Matcher matcher = pattern.matcher(textToBeReplaced.substring(i, i));
-            if (matcher.find()) {
-                stringOfLengthOneToBeReplaced = "@";
-            } else {
-                stringOfLengthOneToBeReplaced = replacementTextOfLengthOne;
-            }
-            replacedText += stringOfLengthOneToBeReplaced;
-        }
-
-        String editedTextParts1And2 = textBeforeErasable.concat(replacedText);
-        String editedTextTotal = editedTextParts1And2.concat(textAfterTextToBeReplaced);
-
-        paper.setText(editedTextTotal);
-
-
-    }
-*/
-
     public int calculateLengthOfErasableText(String textToErase) {
         int lengthOfErasableText = 0;
-        if (getCurrentEraserDurability() < textToErase.length()) {
-            lengthOfErasableText = currentEraserDurability;
+        if (getEraserDurability() < textToErase.length()) {
+            lengthOfErasableText = EraserDurability;
         } else {
             lengthOfErasableText = textToErase.length();
         }
-
         return lengthOfErasableText;
     }
 
@@ -238,20 +266,18 @@ public class Pencil {
         int count = 0;
         int whitespaceCount = countWhitespaceChars(textToErase);
         String blankText = "";
-        currentEraserDurability = getCurrentEraserDurability();
-
+        EraserDurability = getEraserDurability();
 
         for (int i = 0; i < lengthOfErasableText; i++) {
             Character ch = textToErase.charAt(i);
             String stringCharacter = ch.toString();
             String blankSpace = stringCharacter.replace(stringCharacter, " ");
             blankText += blankSpace;
-            currentEraserDurability -= 1;
+            EraserDurability -= 1;
             count++;
         }
-        currentEraserDurability += whitespaceCount;
-
-        setCurrentEraserDurability(currentEraserDurability);
+        EraserDurability += whitespaceCount;
+        setEraserDurability(EraserDurability);
         return blankText;
     }
 
@@ -265,27 +291,6 @@ public class Pencil {
         return whitespaceCount;
     }
 
-
-    //Below: test method to return count as int
-
-    /*public int createBlankTextOfLength(String text, int length) {
-        int count = 0;
-        String blankText = "";
-        currentEraserDurability = getCurrentEraserDurability();
-        for (int i = 0; i < length; i++) {
-            Character ch = text.charAt(i);
-            String stringCharacter = ch.toString();
-            String blankSpace = stringCharacter.replace(stringCharacter, " ");
-            blankText += blankSpace;
-            currentEraserDurability -= 1;
-            count++;
-        }
-
-        setCurrentEraserDurability(currentEraserDurability);
-        return count;
-    }*/
-
-
     public String reverse(String text) {
         StringBuffer stringBufferContent = new StringBuffer(text);
         stringBufferContent = stringBufferContent.reverse();
@@ -293,25 +298,23 @@ public class Pencil {
         return reversed;
     }
 
-
     public void sharpen() {
-        currentPointDurability = initialPointDurability;
-        setCurrentPointDurability(currentPointDurability);
+        PointDurability = initialPointDurability;
+        setPointDurability(PointDurability);
         length -= 1;
         setLength(length);
     }
-
 
     public int getInitialPointDurability() {
         return initialPointDurability;
     }
 
-    public int getCurrentPointDurability() {
-        return currentPointDurability;
+    public int getPointDurability() {
+        return PointDurability;
     }
 
-    public void setCurrentPointDurability(int currentPointDurability) {
-        this.currentPointDurability = currentPointDurability;
+    public void setPointDurability(int pointDurability) {
+        this.PointDurability = pointDurability;
     }
 
     public int getLength() {
@@ -322,12 +325,12 @@ public class Pencil {
         this.length = length;
     }
 
-    public int getCurrentEraserDurability() {
-        return currentEraserDurability;
+    public int getEraserDurability() {
+        return EraserDurability;
     }
 
-    public void setCurrentEraserDurability(int currentEraserDurability) {
-        this.currentEraserDurability = currentEraserDurability;
+    public void setEraserDurability(int eraserDurability) {
+        this.EraserDurability = eraserDurability;
     }
 }
 
