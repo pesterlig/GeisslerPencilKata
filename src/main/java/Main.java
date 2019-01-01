@@ -21,12 +21,23 @@ public class Main {
         String erased = scanner.nextLine();
         pencil.erase(erased, paper);
 
-        System.out.println("After erasing from the paper, the text now reads:\n" + paper.getText());
+        System.out.println("After erasing " + erased + " from the paper, the text now reads:\n" + paper.getText());
+        System.out.println("Current eraser durability is now: " + pencil.getEraserDurability());
 
         System.out.println("This pencil can edit.  Please enter text to replace your erased text:");
         String edited = scanner.nextLine();
         pencil.edit(edited, paper);
         System.out.println("After editing the paper, the text now reads:\n" + paper.getText());
+        System.out.println("Current point durability is now: " + pencil.getPointDurability() + " and eraser durability is now: " + pencil.getEraserDurability());
+
+        System.out.println("Sharpen the pencil now? (Y or N)");
+        String answer = scanner.next();
+        if (answer.equalsIgnoreCase("Y")) {
+            pencil.sharpen();
+            System.out.println("Current point durability is now: " + pencil.getPointDurability() + " and pencil length is: " + pencil.getLength());
+        } else {
+            System.out.println("Pencil was happy to serve you.  Good bye.");
+        }
 
 
     }
