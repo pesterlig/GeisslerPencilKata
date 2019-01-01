@@ -241,8 +241,16 @@ public class Pencil {
         int indexOfLastElementInErasureIndices = paper.getErasureIndices().size() - 1;
         int indexOfLastErasure = paper.getErasureIndices().get(indexOfLastElementInErasureIndices);
 
+        int lengthFromIndexOfLastErasureToEndOfMessage = paper.getText().substring(indexOfLastErasure).length();
+        int lengthOfExtraReplacementTextToAddIfNeeded = (replacementText.length() - lengthFromIndexOfLastErasureToEndOfMessage);
+
+        if (lengthOfExtraReplacementTextToAddIfNeeded > 0) {
+            writeBlanks(lengthOfExtraReplacementTextToAddIfNeeded, paper);
+        }
+
         String textFirstPart = paper.getText().substring(0, (indexOfLastErasure));
         String textLastPart = paper.getText().substring((indexOfLastErasure + replacementText.length()));
+
 
         String entireEditedText = "";
 
@@ -276,9 +284,18 @@ public class Pencil {
                 editedText += " ";
             }
             String firstHalfEntireEditedText = textFirstPart.concat(editedText);
+
             entireEditedText = firstHalfEntireEditedText.concat(textLastPart);
         }
         paper.setText(entireEditedText);
+    }
+
+    public void writeBlanks(int numBlanks, Paper paper) {
+        String writtenText = "";
+        for (int i = 0; i < numBlanks; i++) {
+            writtenText += " ";
+        }
+        paper.setText(paper.getText() + writtenText);
     }
 
     public void sharpen() {
