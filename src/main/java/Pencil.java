@@ -3,7 +3,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-// todo clean up whitespaces, make sure methods are one line apart, and variables are 0 lines apart
 // todo ensure constructors are first methods on your class, and if you have overloaded constructors,
 //      order them by number of arguments (more args go lower down)
 //      Why? The first thing someone wants to see when they open your class is how to make it!
@@ -250,7 +249,6 @@ public class Pencil {
 
         String textFirstPart = paper.getText().substring(0, (indexOfLastErasure));
         String textLastPart = paper.getText().substring((indexOfLastErasure + replacementText.length()));
-
 
         String entireEditedText = "";
 

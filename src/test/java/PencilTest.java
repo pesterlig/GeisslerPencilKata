@@ -40,6 +40,12 @@ public class PencilTest {
         assertEquals("How much wood would a WoodChuck chuck, If a Woodchuck could chuck wood?", paper.getText());
     }
 
+    @Test
+    public void givenPointDurabilityLessThanInputTextLength_whenWriteIsCalled_thenNewTextOnPaperHasBlanksAfterDurabilityGoesZero() {
+        prepContextForWhenPencilWrites("How much wood would",15, 10, 15);
+        assertEquals("How much wood wou  ", paper.getText());
+    }
+
 
     //testing the Pencil.sharpen() method that restores initialPointDurability and reduces length by one
 
@@ -193,12 +199,25 @@ public class PencilTest {
         assertEquals("OMG! Blah Owls", paper.getText());
     }
 
+//    @Test
+//    public void givenReplacementTextLongerThanErasedTExt_whenEditIsCalledThenPaperHasReplacementTextWhereErasedTextWasWithOverwriteSymbols(){
+//        String testText = "An apple a day keeps the doctor away";
+//        String testTextToErase = "apple";
+//        String testReplacementText = "artichoke";
+//        Pencil pencil = new Pencil(100, 10, 20);
+//        Paper paper = new Paper("");
+//        pencil.write(testText, paper);
+//        pencil.erase(testTextToErase, paper);
+//        pencil.edit(testReplacementText, paper);
+//        assertEquals("An artich@k@ay keeps the doctor away", paper.getText());
+//    }
+
     @Test
     public void givenReplacementTextLongerThanErasedTExt_whenEditIsCalledThenPaperHasReplacementTextWhereErasedTextWasWithOverwriteSymbols(){
-        String testText = "An apple a day keeps the doctor away";
+        String testText = "An apple a day";
         String testTextToErase = "apple";
         String testReplacementText = "artichoke";
-        Pencil pencil = new Pencil(100, 10, 20);
+        Pencil pencil = new Pencil(15, 10, 20);
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
@@ -243,6 +262,8 @@ public class PencilTest {
         assertEquals("An apple a day keeps the doctor artichoke", paper.getText());
 
     }
+
+
 
     //Below: private methods to create context for some tests
 
