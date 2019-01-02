@@ -1,32 +1,40 @@
-Pencil Durability Kata for Pillar Technology -  
-This program models a traditional wooden pencil with write, sharpen, erase and edit functions as an apprentice exercise on Test Driven Development. 
-Running Tests and Demo:
+Pencil Durability Kata for Pillar Technology
+ 
+This program models a traditional wooden pencil with write, sharpen, erase and edit functions as an apprentice exercise in Test Driven Development.
+
+Running Tests and Demo
 Download the latest JDK from the Oracle website
 Install Gradle from https://gradle.org/install/
-From my Github repo, download the zipped project and extract to a folder.  Open your IDE and chose this file as the directory for an imported project.
+From Github  download the zipped project and extract to a folder.  Open your IDE and chose this file as the directory for an imported project.
 Import Project from External Model, build with Gradle, use the Default Gradle Wrapper and the project's own JDK.  The project format is .idea-based.
-Run Demo:
+
+To Run Demo:
 After the project syncs, open the project file tree and go to GeisslerPencilKata\src\main\java\Main.java - right click and choose RUN.  Program Demo will run in your console.
-Run unit tests:
-From GeisslerPencilKata\src\test\java\PencilTest.java right click and choose RUN.
+To Run Unit Tests
+From GeisslerPencilKata\src\test\java\PencilTest.java, right click and choose RUN pencil test
+
 For more commands refer to:
 https://docs.gradle.org/current/userguide/command_line_interface.html
+
+Please feel free to email me with questions! Leslie Geissler - pesterlig@gmail.com
+
 Prerequisites:
-To build this project, clone it from Github to Intellij or Similar IDE, Gradle version 4.10, Java 10 & JDK 10
+To build this project, clone it from Github to Intellij or Similar IDE, Gradle version 4.10(or later), Java 10 & JDK 10 (or later).
 
 Built With:
-Java SDK
+Java 10 SDK
 Gradle 4.10 - Dependency Management & project build
 Standard Coding Style
 Versioning:
-intellij VCS and GitHub for versioning. 
+intellij VCS and GitHub for versioning.
 
 Author:
 Leslie Geissler
 
 Inspiration:
-Kata provided by Jed Duffey and James Kirkbride of Pillar Techology
+Kata provided by Jed Duffey and James Kirkbride of Pillar Technology
 A copy of the problem posed by the Kata is included below:
+
 
 Pencil Durability Kata
 The purpose of the Pencil Durability Kata is to write code to simulate, first coarsely and then more faithfully, an ordinary graphite pencil. It includes writing and editing text, point degradation, using the eraser, and sharpening the pencil. The point of this kata is to provide a larger-than-trivial exercise that can be used to practice TDD. A significant portion of the effort will be in determining which tests should be written and, more importantly, written next.
