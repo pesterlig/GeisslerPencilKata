@@ -1,8 +1,14 @@
 Pencil Durability Kata for Pillar Technology -  
 This program models a traditional wooden pencil with write, sharpen, erase and edit functions as an apprentice exercise on Test Driven Development. 
 Running Tests and Demo:
-Run program demo from the command line with 
-Run unit tests from the command line with 
+Download the latest JDK from the Oracle website
+Install Gradle from https://gradle.org/install/
+From my Github repo, download the zipped project and extract to a folder.  Open your IDE and chose this file as the directory for an imported project.
+Import Project from External Model, build with Gradle, use the Default Gradle Wrapper and the project's own JDK.  The project format is .idea-based.
+Run Demo:
+After the project syncs, open the project file tree and go to GeisslerPencilKata\src\main\java\Main.java - right click and choose RUN.  Program Demo will run in your console.
+Run unit tests:
+From GeisslerPencilKata\src\test\java\PencilTest.java right click and choose RUN.
 For more commands refer to:
 https://docs.gradle.org/current/userguide/command_line_interface.html
 Prerequisites:
