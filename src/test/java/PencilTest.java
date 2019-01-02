@@ -199,25 +199,25 @@ public class PencilTest {
         assertEquals("OMG! Blah Owls", paper.getText());
     }
 
-//    @Test
-//    public void givenReplacementTextLongerThanErasedTExt_whenEditIsCalledThenPaperHasReplacementTextWhereErasedTextWasWithOverwriteSymbols(){
-//        String testText = "An apple a day keeps the doctor away";
-//        String testTextToErase = "apple";
-//        String testReplacementText = "artichoke";
-//        Pencil pencil = new Pencil(100, 10, 20);
-//        Paper paper = new Paper("");
-//        pencil.write(testText, paper);
-//        pencil.erase(testTextToErase, paper);
-//        pencil.edit(testReplacementText, paper);
-//        assertEquals("An artich@k@ay keeps the doctor away", paper.getText());
-//    }
-
-    @Test
-    public void givenReplacementTextLongerThanErasedTExt_whenEditIsCalledThenPaperHasReplacementTextWhereErasedTextWasWithOverwriteSymbols(){
-        String testText = "An apple a day";
+   @Test
+   public void givenReplacementTextLongerThanErasedTextAndPointDurability_whenEditIsCalled_ThenPaperHasReplacementTextWhereErasedTextWasWithOverwriteSymbolsAndBlanksWhenDurabilityGoesToZero(){
+       String testText = "An apple a day";
         String testTextToErase = "apple";
         String testReplacementText = "artichoke";
         Pencil pencil = new Pencil(15, 10, 20);
+        Paper paper = new Paper("");
+       pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+       pencil.edit(testReplacementText, paper);
+        assertEquals("An art      ay", paper.getText());
+    }
+
+    @Test
+    public void givenReplacementTextLongerThanErasedTExt_whenEditIsCalledThenPaperHasReplacementTextWhereErasedTextWasWithOverwriteSymbols(){
+        String testText = "An apple a day keeps the doctor away";
+        String testTextToErase = "apple";
+        String testReplacementText = "artichoke";
+        Pencil pencil = new Pencil(100, 10, 20);
         Paper paper = new Paper("");
         pencil.write(testText, paper);
         pencil.erase(testTextToErase, paper);
@@ -262,6 +262,19 @@ public class PencilTest {
         assertEquals("An apple a day keeps the doctor artichoke", paper.getText());
 
     }
+    @Test
+    public void givenReplacementTextLongerThanErasedTextAndContainsWhiteSpaces_whenEditIsCalled_ThenPointDurabilityIsNotReducedForWritingBlanksInEdit(){
+        String testText = "An apple a day keeps the doctor away";
+        String testTextToErase = "apple";
+        String testReplacementText = "arti     ";
+        Pencil pencil = new Pencil(100, 10, 20);
+        Paper paper = new Paper("");
+        pencil.write(testText, paper);
+        pencil.erase(testTextToErase, paper);
+        pencil.edit(testReplacementText, paper);
+        assertEquals(66,pencil.getPointDurability());
+    }
+
 
 
 

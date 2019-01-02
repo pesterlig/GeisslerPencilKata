@@ -93,7 +93,6 @@ public class Pencil {
 
     public void write(String text, Paper paper) {
         String writtenText = "";
-        //Below - What is this loop doing? Adding one character to the String writtenText.
         for (int i = 0; i < text.length(); i++) {
 
             Character ch = text.charAt(i);
@@ -105,19 +104,31 @@ public class Pencil {
                 writtenText += ch.toString();
                 pointDurability -= 1;
 
+                adjustPointDurabilityForWhitespaceCharacters(ch);
+
                 //Check for Whitespace Chars
-                Pattern pattern = Pattern.compile("\\s");
+                /*Pattern pattern = Pattern.compile("\\s");
                 Matcher matcher = pattern.matcher(ch.toString());
                 if (matcher.find()) {
                     getPointDurability();
                     pointDurability += 1;
                     setPointDurability(pointDurability);
-                }
+                }*/
             } else {
                 writtenText += " ";
             }
         }
         paper.setText(paper.getText() + writtenText);
+    }
+
+    public void adjustPointDurabilityForWhitespaceCharacters(Character ch){
+        Pattern pattern = Pattern.compile("\\s");
+        Matcher matcher = pattern.matcher(ch.toString());
+        if (matcher.find()) {
+            getPointDurability();
+            pointDurability += 1;
+            setPointDurability(pointDurability);
+        }
     }
 
     public void erase(String textToErase, Paper paper) {
@@ -271,13 +282,12 @@ public class Pencil {
                     editedText += ch.toString();
                     pointDurability -= 1;
                 }
-                //Check for Whitespace Chars
+                adjustPointDurabilityForWhitespaceCharacters(ch);
+                /*//Check for Whitespace Chars
                 Matcher nextMatcher = pattern.matcher(replacementText);
                 if (!nextMatcher.find()) {
-                    getPointDurability();
                     pointDurability += 1;
-                    setPointDurability(pointDurability);
-                }
+                }*/
             } else {
                 editedText += " ";
             }
@@ -285,6 +295,7 @@ public class Pencil {
 
             entireEditedText = firstHalfEntireEditedText.concat(textLastPart);
         }
+        setPointDurability(pointDurability);
         paper.setText(entireEditedText);
     }
 
