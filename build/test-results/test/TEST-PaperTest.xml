@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PaperTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-12-28T14:02:21" hostname="DESKTOP-9AK9NSF" time="0.003">
+<testsuite name="PaperTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-01-02T06:46:14" hostname="DESKTOP-9AK9NSF" time="0.001">
   <properties/>
-  <testcase name="whenPaperSetsText_ThenTheGetTextMethodReturnsTheSameTextValue" classname="PaperTest" time="0.003"/>
+  <testcase name="whenPaperSetsText_ThenTheGetTextMethodReturnsTheSameTextValue" classname="PaperTest" time="0.0"/>
+  <testcase name="whenPaperGetsErased_thenErasureIndicesGetReturnsTheIndexOfTheFirstCharacterOfTheLastErasure" classname="PaperTest" time="0.001"/>
   <testcase name="whenPaperIsPassedAStringOfText_ThenPaperSetsText" classname="PaperTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

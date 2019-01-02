@@ -2,71 +2,6 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-// todo ensure constructors are first methods on your class, and if you have overloaded constructors,
-//      order them by number of arguments (more args go lower down)
-//      Why? The first thing someone wants to see when they open your class is how to make it!
-//      Constructors with the fewest parameters give them the bare minimum info about your class to get going
-// todo move all getters and setters to the bottom of the file, below methods
-//      Why? They don't contain the core behavior of the class, they are mostly for convention, so they create extra noise throughout your class
-//      Put that noise at the bottom where it's out of the way!
-// todo find "like logic", or duplicated code blocks, and shunt them out to methods, to be called by the things that they were previously in
-//      EXCEPTION: Don't do this step for constructor methods: A clean constructor abides by the idea that the instance of the class does not exist
-//      until it's done being called, so avoid calling other methods of the class from within the constructor
-// todo clean up long argument names! these can just be "pointDurability" and "eraserDurability"
-//      Why? you can think of methods as having their own scope, and you only need to be specific enough to not mix things up within that scope
-
-// todo if a block of code is long, it is generally doing a complex task. If you can describe that task succinctly,
-//  make a method with that description as the name
-// then call that method instead of doing the code block directly. This helps keep the main logic readable, because it breaks it out into steps
-
-// LONG EXAMPLE the logic in this if statement loop is doing what?
-
-// it's writing a character.
-
-   /*  // todo this process can be repeated over and over to create smaller more specific methods!
-    private Character writeCharacter(Character ch){
-
-        if (pointDurability >= 1) {
-            if (Character.isUpperCase(ch)) {
-                pointDurability -= 1;
-            }
-            writtenCharacter = ch.toString();
-            pointDurability -= 1;
-
-            //Check for Whitespace Chars
-            Pattern pattern = Pattern.compile("\\s");
-            Matcher matcher = pattern.matcher(ch.toString());
-            if (matcher.find()) {
-                getPointDurability();
-                pointDurability += 1;
-                setPointDurability(pointDurability);
-            }
-        } else {
-            writtenCharacter = " ";
-        }
-        return writtenCharacter;
-    }
-    */
-
-// then the method becomes
-    /*
-    public void write(String text, Paper paper) {
-        String writtenText = "";
-        for (int i = 0; i < text.length(); i++) {
-            writtenText += writeCharacter(text.charAt(i));
-        }
-        paper.setText(paper.getText() + writtenText);
-    }
-    Which is much more readable
-    * */
-
-/*
- * When you do this, always put the methods in the order that they are called by the code, so as you read down the page,
- * you see where each one is being used before you read through it, giving you context on the usage
- * */
-
-
 public class Pencil {
 
     private int initialPointDurability;
@@ -92,40 +27,37 @@ public class Pencil {
     }
 
     public void write(String text, Paper paper) {
-        String writtenText = "";
+        StringBuilder stringBuilder = new StringBuilder("");
         for (int i = 0; i < text.length(); i++) {
-
-            Character ch = text.charAt(i);
-
-            if (pointDurability >= 1) {
-                if (Character.isUpperCase(ch)) {
-                    pointDurability -= 1;
-                }
-                writtenText += ch.toString();
-                pointDurability -= 1;
-
-                adjustPointDurabilityForWhitespaceCharacters(ch);
-
-                //Check for Whitespace Chars
-                /*Pattern pattern = Pattern.compile("\\s");
-                Matcher matcher = pattern.matcher(ch.toString());
-                if (matcher.find()) {
-                    getPointDurability();
-                    pointDurability += 1;
-                    setPointDurability(pointDurability);
-                }*/
-            } else {
-                writtenText += " ";
-            }
+            writeCharacter(stringBuilder, text.charAt(i));
         }
-        paper.setText(paper.getText() + writtenText);
+        paper.setText(paper.getText() + stringBuilder);
     }
 
-    public void adjustPointDurabilityForWhitespaceCharacters(Character ch){
+    public void writeCharacter(StringBuilder stringBuilder, Character ch) {
+        if (pointDurability >= 1) {
+            adjustPointDurabilityForUppercase(ch);
+            stringBuilder.append(ch);
+            pointDurability -= 1;
+            adjustPointDurabilityForWhitespaceCharacters(ch);
+        } else {
+            stringBuilder.append(' ');
+        }
+    }
+
+    public void adjustPointDurabilityForUppercase(Character ch) {
+        int pointDurability = getPointDurability();
+        if (Character.isUpperCase(ch)) {
+            pointDurability -= 1;
+            setPointDurability(pointDurability);
+        }
+    }
+
+    public void adjustPointDurabilityForWhitespaceCharacters(Character ch) {
+        int pointDurability = getPointDurability();
         Pattern pattern = Pattern.compile("\\s");
         Matcher matcher = pattern.matcher(ch.toString());
         if (matcher.find()) {
-            getPointDurability();
             pointDurability += 1;
             setPointDurability(pointDurability);
         }
